@@ -1,19 +1,27 @@
-package com.AL.Json2Model;
+package com.AL.Json2Model.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.AL.Json2Model.General.DataType;
+import com.AL.Json2Model.General.ClassFile;
+import com.AL.Json2Model.Helpers.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public abstract class ModelAbstract {
 	
-	private String name;
-	private String json;
-	private Map<String, String> properties;
-	private Language language;
+	protected String name;
+	protected String json;
+	protected HashMap<String, DataType> properties;
+	protected Language language;
 	
 	//Object needed for the serialization.
-	private JsonParser parser = new JsonParser();
+	protected JsonParser parser = new JsonParser();
+	
+	//The files to write
+	protected ArrayList<ClassFile> files;
 
 	protected  ModelAbstract(String name, String json, Language language) {
 		this.name = name;
@@ -21,10 +29,13 @@ public abstract class ModelAbstract {
 		this.properties = new HashMap<>();
 		this.language = language;
 		this.parser = new JsonParser();
+		this.files = new ArrayList<>();
 	}
 
 	protected abstract void parse();
-	protected abstract String getPrimitiveDataType(JsonElement value);
+	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
+	protected abstract void prepareBoby();
+	
 
 	/**
 	 * @return the name
@@ -57,14 +68,14 @@ public abstract class ModelAbstract {
 	/**
 	 * @return the properties
 	 */
-	protected Map<String, String> getProperties() {
+	protected Map<String, DataType> getProperties() {
 		return properties;
 	}
 
 	/**
 	 * @param properties the properties to set
 	 */
-	protected void setProperties(Map<String, String> properties) {
+	protected void setProperties(HashMap<String, DataType> properties) {
 		this.properties = properties;
 	}
 

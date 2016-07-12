@@ -1,4 +1,4 @@
-package com.AL.Json2Model;
+package com.AL.Json2Model.Helpers;
 
 public enum Language {
 	C,
