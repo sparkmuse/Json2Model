@@ -1,4 +1,5 @@
-package com.AL.Json2Model.General;
+package com.al.json2model.general;
+
 
 public class DataType {
 

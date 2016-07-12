@@ -1,4 +1,5 @@
-package com.AL.Json2Model.Helpers;
+package com.al.json2model.general;
+
 
 public enum Language {
 	C,
@@ -6,5 +7,5 @@ public enum Language {
 	JAVA,
 	SWIFT,
 	VISUAL_BASIC,
-	VBA	
+	VBA
 }

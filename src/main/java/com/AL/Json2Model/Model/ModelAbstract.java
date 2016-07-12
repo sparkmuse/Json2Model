@@ -1,12 +1,13 @@
-package com.AL.Json2Model.Model;
+package com.al.json2model.model;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.AL.Json2Model.General.DataType;
-import com.AL.Json2Model.General.ClassFile;
-import com.AL.Json2Model.Helpers.Language;
+import com.al.json2model.general.ClassFile;
+import com.al.json2model.general.DataType;
+import com.al.json2model.general.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 

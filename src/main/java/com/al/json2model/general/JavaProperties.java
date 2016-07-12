@@ -1,4 +1,5 @@
-package com.AL.Json2Model.Helpers;
+package com.al.json2model.general;
+
 
 public interface JavaProperties {
 
@@ -28,9 +29,9 @@ public interface JavaProperties {
 	public static final String SETTER_BODY = "\t\tthis.%s = %s;\n";
 	
 	//Method to load the data if the object is top.
-	public static final String METHOD_LOAD_START = "\tthis.%s = %s\n";
-	public static final String METHOD_LOAD_BODY = "\t\t//TODO: Needs to be implemented.";
-	public static final String METHOD_LOAD_END = "\tthis.%s = %s\n";
+	public static final String METHOD_LOAD_START = "\tpublic void load() {\n";
+	public static final String METHOD_LOAD_BODY = "\t\t//TODO: Needs to be implemented.\n";
+	public static final String METHOD_LOAD_END = "\t}\n";
 
 }
 

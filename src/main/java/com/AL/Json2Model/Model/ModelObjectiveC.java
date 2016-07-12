@@ -1,4 +1,5 @@
-package com.AL.Json2Model.Model;
+package com.al.json2model.model;
+
 
 public class ModelObjectiveC{
 
