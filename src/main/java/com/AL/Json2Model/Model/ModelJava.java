@@ -43,6 +43,7 @@ public class ModelJava extends ModelAbstract implements JavaProperties {
 					
 					//Recursive way to get all the elements
 					ModelJava m = new ModelJava(key, value.toString(), super.getLanguage());
+					m.topObject = false;
 					m.parse();
 				}else if (value.isJsonArray()) {
 					dataType = new DataType(key,"Array", true); //TODO:Fix this later.
@@ -98,6 +99,7 @@ public class ModelJava extends ModelAbstract implements JavaProperties {
 		sb.append(String.format(CLASS_DECLARATION_START, StringUtils.capitalize(name)));
 		sb.append(properties);
 		sb.append(constructor);
+		sb.append(getLoadMethod());
 		sb.append(getterAndSetters);
 		sb.append(CLASS_DECLARATION_END);
 		
@@ -105,6 +107,22 @@ public class ModelJava extends ModelAbstract implements JavaProperties {
 		
 		//Add the property
 		files.add(file);
+		
+	}
+	
+	private String getLoadMethod() {
+
+		if (!topObject) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(METHOD_LOAD_START);
+		sb.append(METHOD_LOAD_BODY);
+		sb.append(METHOD_LOAD_END);
+		
+		return sb.toString();
 		
 	}
 
@@ -115,7 +133,7 @@ public class ModelJava extends ModelAbstract implements JavaProperties {
 		for (String propertyKey : properties.keySet()) {
 			
 			DataType t = properties.get(propertyKey);
-			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getName();
+			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
 			sb.append(String.format(PROPERTY_DECLARATION, type, t.getName()));
 		}
 		

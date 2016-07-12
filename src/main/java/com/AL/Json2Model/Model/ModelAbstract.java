@@ -14,22 +14,20 @@ public abstract class ModelAbstract {
 	
 	protected String name;
 	protected String json;
-	protected HashMap<String, DataType> properties;
+	protected HashMap<String, DataType> properties  = new HashMap<>();;
 	protected Language language;
+	protected boolean topObject = true;
 	
 	//Object needed for the serialization.
 	protected JsonParser parser = new JsonParser();
 	
 	//The files to write
-	protected ArrayList<ClassFile> files;
+	protected ArrayList<ClassFile> files = new ArrayList<>();
 
 	protected  ModelAbstract(String name, String json, Language language) {
 		this.name = name;
 		this.json = json;
-		this.properties = new HashMap<>();
 		this.language = language;
-		this.parser = new JsonParser();
-		this.files = new ArrayList<>();
 	}
 
 	protected abstract void parse();

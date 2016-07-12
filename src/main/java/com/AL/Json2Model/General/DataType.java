@@ -1,12 +1,10 @@
 package com.AL.Json2Model.General;
 
 public class DataType {
-	
+
 	private String name;
 	private String type;
 	private boolean object;
-
-	
 
 	public DataType(String name, String type, boolean object) {
 		super();
@@ -14,27 +12,32 @@ public class DataType {
 		this.type = type;
 		this.object = object;
 	}
-	
+
 	/**
 	 * @return the object
 	 */
 	public boolean isObject() {
 		return object;
 	}
+
 	/**
-	 * @param object the object to set
+	 * @param object
+	 *            the object to set
 	 */
 	public void setObject(boolean object) {
 		this.object = object;
 	}
+
 	/**
 	 * @return the type
 	 */
 	public String getType() {
 		return type;
 	}
+
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
@@ -48,7 +51,9 @@ public class DataType {
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -56,6 +61,8 @@ public class DataType {
 		return type;
 	}
 
-	
-	
+	public void load() {
+
+	}
+
 }
