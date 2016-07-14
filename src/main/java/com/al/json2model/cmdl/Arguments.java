@@ -1,9 +1,15 @@
 package com.al.json2model.cmdl;
 
 import java.io.File;
-
 import com.al.json2model.general.Language;
 
+/**
+ * Class to hold the arguments passed by the command line after they have been
+ * parsed by the class ArgumentParser.
+ * 
+ * @author alfredo
+ *
+ */
 public class Arguments {
 	
 	private String inputFile = null;
@@ -21,14 +27,21 @@ public class Arguments {
 		this.language = language;
 	}
 	
-	
+	/**
+	 * Checks if the values in the arguments fields are valid.
+	 * @return true if are valid, otherwise false.
+	 */
 	public boolean isValid() {	
 		return (!hasDefaultValues() && 
 				isValidInputFile() && 
 				isValidOutputDirectory());
 	}
 	
-	
+	/**
+	 * Checks if the output directory is valid.
+	 * - If the file does not exist we try to create one.
+	 * @return true if valid or if successfully created, otherwise false.
+	 */
 	private boolean isValidOutputDirectory() {
 		
 		File f = new File(outputFolder);
@@ -41,6 +54,10 @@ public class Arguments {
 		
 	}
 	
+	/**
+	 * Checks if the input file is valid.
+	 * @return true if valid, otherwise false.
+	 */
 	private boolean isValidInputFile() {
 		
 		File f = new File(inputFile);
