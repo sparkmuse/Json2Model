@@ -15,7 +15,7 @@ public abstract class ModelAbstract {
 	
 	protected String name;
 	protected String json;
-	protected HashMap<String, DataType> properties  = new HashMap<>();;
+	protected HashMap<String, DataType> properties  = new HashMap<>();
 	protected Language language;
 	protected boolean topObject = true;
 	
@@ -24,16 +24,19 @@ public abstract class ModelAbstract {
 	
 	//The files to write
 	protected ArrayList<ClassFile> files = new ArrayList<>();
+	
+	//The destination folder for the files.
+	protected String destFolder;
 
-	protected  ModelAbstract(String name, String json, Language language) {
+	protected  ModelAbstract(String name, String json, Language language, String destFolder) {
 		this.name = name;
 		this.json = json;
 		this.language = language;
+		this.destFolder = destFolder;
 	}
 
 	protected abstract void parse();
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
-	protected abstract void prepareBoby();
 	
 
 	/**

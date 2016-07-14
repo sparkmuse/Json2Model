@@ -36,7 +36,8 @@ public class App {
 		String name = "ClassF";
 		
 		
-		ModelJava m = new ModelJava(name, json, language);
-		m.parse();	
+		ModelJava m = new ModelJava(name, json, language, arguments.getOutputFolder());
+		m.parse();
+		m.save();
 	}
 }

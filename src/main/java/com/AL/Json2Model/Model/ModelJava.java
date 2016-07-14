@@ -18,6 +18,11 @@ import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATI
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,8 +37,8 @@ import com.google.gson.JsonPrimitive;
 
 public class ModelJava extends ModelAbstract {
 
-	public ModelJava(String name, String json, Language language) {
-		super(name, json, language);
+	public ModelJava(String name, String json, Language language, String destFolder) {
+		super(name, json, language, destFolder);
 	}
 	
 	@Override
@@ -58,9 +63,11 @@ public class ModelJava extends ModelAbstract {
 					dataType = new DataType(key, key, true);
 					
 					//Recursive way to get all the elements
-					ModelJava m = new ModelJava(key, value.toString(), super.getLanguage());
+					ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
 					m.topObject = false;
 					m.parse();
+					m.save();
+					
 				}else if (value.isJsonArray()) {
 					dataType = new DataType(key,"Array", true); //TODO:Fix this later.
 					
@@ -74,7 +81,7 @@ public class ModelJava extends ModelAbstract {
 		}
 		
 		// Process the file properties
-		prepareBoby();
+		prepareFile();
 		
 		// Print the class
 		System.out.println(files.get(0).getContents());
@@ -97,13 +104,37 @@ public class ModelJava extends ModelAbstract {
 		}
 	}
 
-	@Override
-	protected void prepareBoby() {
+	
+	private void prepareFile() {
 		
 		//Java has only one class file to be created.
 		ClassFile file = new ClassFile();
 		file.setName(name);
-//		file.setFullPath(?); //TODO:COme back and Fix this
+		file.setFullPath(destFolder + File.separator + name + ".java"); //TODO:Language has to be dynamic here.
+		file.setContents(getBody());
+		
+		//Add the property
+		files.add(file);
+	}
+	
+	public void save() {
+		
+		for (ClassFile file : files) {
+			
+			byte[] bytes = file.getContents().getBytes();
+			
+			try {		
+				Files.write(Paths.get(file.getFullPath()), bytes, StandardOpenOption.CREATE);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	private String getBody() {
 		
 		// Prepare the body.
 		String properties = getBodyProperties();
@@ -119,11 +150,7 @@ public class ModelJava extends ModelAbstract {
 		sb.append(getterAndSetters);
 		sb.append(CLASS_DECLARATION_END);
 		
-		file.setContents(sb.toString());
-		
-		//Add the property
-		files.add(file);
-		
+		return sb.toString();
 	}
 	
 	private String getLoadMethod() {
