@@ -1,7 +1,6 @@
 package com.al.json2model.model.properties;
 
-
-public interface JavaProperties {
+public final class PropertiesJava {
 
 	public static final String NEW_LINE = "\n";
 
@@ -22,16 +21,16 @@ public interface JavaProperties {
 	public static final String GETTER_NAME_SUFFIX_BOOLEAN = "is";
 	public static final String GETTER_BODY = "\t\treturn %s;\n";
 
-	// Setter method name, data type. Data type is made of the type and the name "int years"
+	// Setter method name, data type. Data type is made of the type and the name
+	// "int years"
 	public static final String SETTER_DECLARATION_START = "\tpublic void %s(%s %s) {\n";
 	public static final String SETTER_DECLARATION_END = "\t}\n";
 	public static final String SETTER_NAME_SUFFIX = "set";
 	public static final String SETTER_BODY = "\t\tthis.%s = %s;\n";
-	
-	//Method to load the data if the object is top.
+
+	// Method to load the data if the object is top.
 	public static final String METHOD_LOAD_START = "\tpublic void load() {\n";
 	public static final String METHOD_LOAD_BODY = "\t\t//TODO: Needs to be implemented.\n";
 	public static final String METHOD_LOAD_END = "\t}\n";
-
+	
 }
-
