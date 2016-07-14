@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Class to read contents from a file.
+ * @author alfredo
+ *
+ */
 public class JsonReader {
 	
 	private String content = null;
@@ -13,6 +18,9 @@ public class JsonReader {
 		filePath = path;
 	}
 	
+	/**
+	 * Reads the contents from the JSON file.
+	 */
 	public void read() {
 		
 		String charset = "UTF-8";
