@@ -1,6 +1,10 @@
 package com.al.json2model.model;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +63,66 @@ public abstract class ModelAbstract {
 	 */
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
 	
+	/**
+	 * Prepares the file for each individual class. It will get the information from
+	 * the Model, create a ClassFile object and add it to the files collection
+	 * of the model.
+	 */
+	protected abstract void prepareFiles();
+	
+	/**
+	 * Gets the main block of the file body and puts them together.
+	 * Ex: properties, getter & setters, constructors.
+	 * @return
+	 */
+	protected abstract String getBody();
+	
+	
+	/**
+	 * Gets the properties and packs in a string format.
+	 * @return The properties ready to print.
+	 */
+	protected abstract String getBodyProperties();
+	
+	/**
+	 * Creates a constructor for the class.
+	 * @return The constructors ready to print.
+	 */
+	protected abstract String getBodyConstructor();
+	
+	/**
+	 * Creates properties getter and setter. 
+	 * @return The getter and setters ready to print.
+	 */
+	protected abstract String getBodyGettersAndSetters();
+	
+	
+	/**
+	 * Method to return a helper method that is to be implemented by the
+	 * top class of the JSON file. 
+	 * This is a place holder since implementation will vary.
+	 * @return
+	 */
+	protected abstract String getLoadMethod();
+	
+	
+	/**
+	 * Saves a file to the specified directory.
+	 */
+	public void save() {
+		
+		for (ClassFile file : files) {
+			
+			byte[] bytes = file.getContents().getBytes();
+			
+			try {		
+				Files.write(Paths.get(file.getFullPath()), bytes, StandardOpenOption.CREATE);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+	}
+	
 
 	/**
 	 * @return the name
@@ -75,14 +139,14 @@ public abstract class ModelAbstract {
 	}
 
 	/**
-	 * @return the json
+	 * @return the JSON
 	 */
 	protected String getJson() {
 		return json;
 	}
 
 	/**
-	 * @param json the json to set
+	 * @param json the JSON to set
 	 */
 	protected void setJson(String json) {
 		this.json = json;

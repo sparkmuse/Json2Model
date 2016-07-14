@@ -1,15 +1,24 @@
 package com.al.json2model.general;
 
+import java.io.File;
 
 public class ClassFile {
 	
 	private String name;
-	private String fullPath;
+	private String extension;
+	private String folder;
 	private String contents;
 	
 	
 	public ClassFile() {
 		super();
+	}
+	
+	/**
+	 * @return the fullPath
+	 */
+	public String getFullPath() {
+		return folder + File.separator + name + extension;
 	}
 
 	
@@ -25,18 +34,8 @@ public class ClassFile {
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * @return the fullPath
-	 */
-	public String getFullPath() {
-		return fullPath;
-	}
-	/**
-	 * @param fullPath the fullPath to set
-	 */
-	public void setFullPath(String fullPath) {
-		this.fullPath = fullPath;
-	}
+	
+
 	/**
 	 * @return the contents
 	 */
@@ -48,6 +47,26 @@ public class ClassFile {
 	 */
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+
+	public String getExtension() {
+		return extension;
+	}
+
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
+
+
+	public String getFolder() {
+		return folder;
+	}
+
+
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 	
 	

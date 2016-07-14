@@ -18,11 +18,6 @@ import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATI
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,7 +30,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+/**
+ * Model class for Java. This class will be in charge to model the data and produce
+ * a file.java class.
+ * 
+ * @author alfredo
+ *
+ */
 public class ModelJava extends ModelAbstract {
+
 
 	public ModelJava(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
@@ -82,14 +85,13 @@ public class ModelJava extends ModelAbstract {
 		
 		
 		// Process the file properties
-		prepareFile();
+		prepareFiles();
 		
 		// Print the class
 		System.out.println(files.get(0).getContents());
 
 	}
-	
-	
+
 	@Override
 	protected DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry) {
 		
@@ -106,37 +108,24 @@ public class ModelJava extends ModelAbstract {
 		}
 	}
 
-	
-	private void prepareFile() {
-		
+	@Override
+	protected void prepareFiles() {
+
 		//Java has only one class file to be created.
 		ClassFile file = new ClassFile();
-		file.setName(name);
-		file.setFullPath(destFolder + File.separator + name + ".java"); //TODO:Language has to be dynamic here.
+		file.setName(StringUtils.capitalize(name));
+		file.setFolder(destFolder);
+		file.setExtension(".java");
 		file.setContents(getBody());
 		
 		//Add the property
 		files.add(file);
 	}
 	
-	public void save() {
-		
-		for (ClassFile file : files) {
-			
-			byte[] bytes = file.getContents().getBytes();
-			
-			try {		
-				Files.write(Paths.get(file.getFullPath()), bytes, StandardOpenOption.CREATE);
-			} catch (IOException e) {
-				System.err.println(e.getMessage());
-			}
-		}
-	}
 
-	/**
-	 * @return
-	 */
-	private String getBody() {
+
+	@Override
+	protected String getBody() {
 		
 		// Prepare the body.
 		String properties = getBodyProperties();
@@ -154,24 +143,9 @@ public class ModelJava extends ModelAbstract {
 		
 		return sb.toString();
 	}
-	
-	private String getLoadMethod() {
 
-		if (!topObject) {
-			return "";
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append(METHOD_LOAD_START);
-		sb.append(METHOD_LOAD_BODY);
-		sb.append(METHOD_LOAD_END);
-		
-		return sb.toString();
-		
-	}
-
-	private String getBodyProperties(){
+	@Override
+	protected String getBodyProperties(){
 		
 		StringBuilder sb = new StringBuilder();
 
@@ -187,12 +161,15 @@ public class ModelJava extends ModelAbstract {
 		return sb.toString();
 	}
 	
-	private String getBodyConstructor(){
+	@Override
+	protected String getBodyConstructor(){
 		//TODO: Implement Later
 		return "";
 	}
 	
-	private String getBodyGettersAndSetters(){
+	
+	@Override
+	protected String getBodyGettersAndSetters(){
 		
 		StringBuilder sb = new StringBuilder();
 
@@ -216,4 +193,20 @@ public class ModelJava extends ModelAbstract {
 		return sb.toString();
 	}
 	
+	@Override
+	protected String getLoadMethod() {
+
+		if (!topObject) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(METHOD_LOAD_START);
+		sb.append(METHOD_LOAD_BODY);
+		sb.append(METHOD_LOAD_END);
+		
+		return sb.toString();
+		
+	}
 }

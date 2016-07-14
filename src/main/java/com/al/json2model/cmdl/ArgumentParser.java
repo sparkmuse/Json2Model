@@ -76,7 +76,6 @@ public class ArgumentParser extends DefaultParser{
 	/**
 	 * Parses the command line arguments and adds them to the Arguments object if possible.
 	 * @param args The command line arguments to be parsed.
-	 * @return 
 	 */
 	public void parse(String [] args){
 		//TODO: Remove the print to command line here.

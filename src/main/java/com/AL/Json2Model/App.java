@@ -7,7 +7,7 @@ import com.al.json2model.general.Language;
 import com.al.json2model.model.ModelJava;
 
 /**
- * Hello world!
+ * Main application class. :)
  *
  */
 public class App {
