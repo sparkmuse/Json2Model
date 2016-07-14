@@ -1,7 +1,10 @@
 package com.al.json2model.cmdl;
 
+import java.io.File;
+
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -89,19 +92,28 @@ public class ArgumentParser extends DefaultParser{
 				if (cmd.hasOption(OPTION_FILE)) {
 					String file = cmd.getOptionValue(OPTION_FILE);
 					arguments.setInputFile(file);
-					System.out.println("f:\t" + file);
+				}else {
+					throw new  MissingArgumentException(currentOption);
 				}
 				
 				if (cmd.hasOption(OPTION_LANGUAGE)) {
 					Language language = Language.valueOf(cmd.getOptionValue(OPTION_LANGUAGE).toUpperCase());
 					arguments.setLanguage(language);
+				}else {
+					throw new MissingArgumentException(currentOption);
 				}
 				
 				if (cmd.hasOption(OPTION_OUT)) {
 					String out = cmd.getOptionValue(OPTION_OUT);
 					arguments.setOutputFolder(out);
-					System.out.println("o:\t" + out);
+				}else {
+					File f = new File(arguments.getInputFile());
+					arguments.setOutputFolder(f.getParentFile().getPath());
 				}
+				
+				// Print the values to the console.
+				System.out.println(arguments.toString());
+				
 			}
 		}catch (ParseException e) {
 			System.err.println(e.getMessage());;

@@ -1,5 +1,7 @@
 package com.al.json2model.cmdl;
 
+import java.io.File;
+
 import com.al.json2model.general.Language;
 
 public class Arguments {
@@ -20,14 +22,51 @@ public class Arguments {
 	}
 	
 	
-	public boolean isValid() {
-		
-		return (inputFile != null && 
-				outputFolder != null && 
-				language != Language.UNKNOWN) ;
+	public boolean isValid() {	
+		return (!hasDefaultValues() && 
+				isValidInputFile() && 
+				isValidOutputDirectory());
 	}
 	
 	
+	private boolean isValidOutputDirectory() {
+		
+		File f = new File(outputFolder);
+		
+		if (!f.exists()) {
+			return f.mkdirs();
+		}
+		
+		return true;
+		
+	}
+	
+	private boolean isValidInputFile() {
+		
+		File f = new File(inputFile);
+		return (f.exists() && f.isFile() && f.canRead());
+	}
+	
+	private boolean hasDefaultValues() {
+		return  (inputFile == null && 
+				 outputFolder == null && 
+				 language == Language.UNKNOWN);
+	}
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Arguments \n"
+				+ "inputFile=\t" + inputFile + "\n"  
+				+ "language=\t" + language + "\n"
+				+ "outputFolder=\t" + outputFolder;
+	}
+
 	/**
 	 * @return the inputFile
 	 */
