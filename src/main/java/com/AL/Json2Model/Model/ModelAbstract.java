@@ -11,6 +11,11 @@ import com.al.json2model.general.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+/**
+ * Model class from which all the other models will be derived.
+ * @author alfredo
+ *
+ */
 public abstract class ModelAbstract {
 	
 	protected String name;
@@ -28,6 +33,13 @@ public abstract class ModelAbstract {
 	//The destination folder for the files.
 	protected String destFolder;
 
+	/**
+	 * Default constructor for the class.
+	 * @param name The name if the class
+	 * @param json The json file string to be processed
+	 * @param language The language used for the class
+	 * @param destFolder The folder where to place the processed files.
+	 */
 	protected  ModelAbstract(String name, String json, Language language, String destFolder) {
 		this.name = name;
 		this.json = json;
@@ -35,7 +47,16 @@ public abstract class ModelAbstract {
 		this.destFolder = destFolder;
 	}
 
+	/**
+	 * Method to parse the contents.
+	 */
 	protected abstract void parse();
+	
+	/**
+	 * Method to process the data if they are primitive.
+	 * @param entry The map entry for the object (aka the primitive)
+	 * @return A DataType object.
+	 */
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
 	
 

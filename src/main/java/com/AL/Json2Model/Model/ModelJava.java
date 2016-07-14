@@ -75,10 +75,11 @@ public class ModelJava extends ModelAbstract {
 					dataType = getPrimitiveDataType(entry);
 				}
 
-				super.getProperties().put(key, dataType);
+				properties.put(key, dataType);
 				
 			}	
-		}
+		}	
+		
 		
 		// Process the file properties
 		prepareFile();
@@ -87,6 +88,7 @@ public class ModelJava extends ModelAbstract {
 		System.out.println(files.get(0).getContents());
 
 	}
+	
 	
 	@Override
 	protected DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry) {
@@ -179,7 +181,7 @@ public class ModelJava extends ModelAbstract {
 			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
 			sb.append(String.format(PROPERTY_DECLARATION, type, t.getName()));
 		}
-		
+
 		sb.append(NEW_LINE);
 		
 		return sb.toString();
