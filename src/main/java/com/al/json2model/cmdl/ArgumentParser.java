@@ -83,7 +83,7 @@ public class ArgumentParser extends DefaultParser{
 			
 			parse(options, args);
 			
-			if (cmd.hasOption(OPTION_HELP)) {
+			if (args.length == 0 || cmd.hasOption(OPTION_HELP)) {
 				// Help has the highest priority.
 				displayHelp();
 				
