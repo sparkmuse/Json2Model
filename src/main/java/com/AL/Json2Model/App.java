@@ -31,6 +31,7 @@ public class App {
 			return;
 		}
 		
+		//Get the name of the top class from the file name.
 		String json = reader.getContent();
 		Language language = Language.JAVA;
 		String name = "ClassF";

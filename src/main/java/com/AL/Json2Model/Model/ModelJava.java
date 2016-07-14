@@ -28,7 +28,9 @@ import com.al.json2model.general.DataType;
 import com.al.json2model.general.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Model class for Java. This class will be in charge to model the data and produce
@@ -47,49 +49,55 @@ public class ModelJava extends ModelAbstract {
 	@Override
 	public void parse() {
 
-		JsonElement jsonTree = parser.parse(super.getJson());
+		JsonElement jsonTree = null;
+		
+		try {
+			jsonTree = parser.parse(super.getJson());
+			
+			if (jsonTree.isJsonObject()) {
+				JsonObject rootObject = jsonTree.getAsJsonObject(); // we assume the top object is an object.
 
-		if (jsonTree.isJsonObject()) {
-			JsonObject rootObject = jsonTree.getAsJsonObject(); // we assume the top object is an object.
+				// Get all the keys
+				Set<Map.Entry<String, JsonElement>> entrySet = rootObject.entrySet();
 
-			// Get all the keys
-			Set<Map.Entry<String, JsonElement>> entrySet = rootObject.entrySet();
+				// Iterate through them
+				for (Map.Entry<String, JsonElement> entry : entrySet) {
 
-			// Iterate through them
-			for (Map.Entry<String, JsonElement> entry : entrySet) {
-
-				String key = entry.getKey();
-				JsonElement value = entry.getValue();
-				DataType dataType = null;
-				
-				if (value.isJsonObject()) {		
-					dataType = new DataType(key, key, true);
+					String key = entry.getKey();
+					JsonElement value = entry.getValue();
+					DataType dataType = null;
 					
-					//Recursive way to get all the elements
-					ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
-					m.topObject = false;
-					m.parse();
-					m.save();
-					
-				}else if (value.isJsonArray()) {
-					dataType = new DataType(key,"Array", true); //TODO:Fix this later.
-					
-				}else if (value.isJsonPrimitive()) {
-					dataType = getPrimitiveDataType(entry);
-				}
+					if (value.isJsonObject()) {		
+						dataType = new DataType(key, key, true);
+						
+						//Recursive way to get all the elements
+						ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
+						m.topObject = false;
+						m.parse();
+						m.save();
+						
+					}else if (value.isJsonArray()) {
+						dataType = new DataType(key,"Array", true); //TODO:Fix this later.
+						
+					}else if (value.isJsonPrimitive()) {
+						dataType = getPrimitiveDataType(entry);
+					}
 
-				properties.put(key, dataType);
-				
+					properties.put(key, dataType);
+					
+				}	
 			}	
-		}	
-		
-		
-		// Process the file properties
-		prepareFiles();
-		
-		// Print the class
-		System.out.println(files.get(0).getContents());
-
+			
+			// Process the file properties
+			prepareFiles();
+			
+			
+		} catch (JsonSyntaxException e) {
+			
+			System.err.println(e.getMessage());
+		} catch (JsonParseException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Override
