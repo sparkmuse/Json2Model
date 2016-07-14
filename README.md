@@ -36,9 +36,70 @@ Enjoy
 
 
 ##User Guides
+I want to get a Model 'Box' file from Box.json file to follow MVC patters.
+
+Box.json contains:
+````json
+{
+  "text": "input",
+  "left": 20,
+  "top": 20,
+  "width": 200,
+  "height": 25
+}
+````
+
 - Just run this to test.
 ````
-./j2m.sh -f "myDirectory/input.json" -lang=java -o "/myDirectory/target/"
+./j2m.sh -f "myDirectory/Box.json" -lang=java -o "/myDirectory/target/"
+````
+
+- A new file Box.class was created in the specified directory 
+Box.class contains:
+
+````java
+public class ClassF {
+
+	private double top;
+	private double left;
+	private double width;
+	private String text;
+	private double height;
+
+	public void load() {
+		//TODO: Needs to be implemented.
+	}
+	public getTop double() {
+		return top;
+	}
+	public void setTop(double top) {
+		this.top = top;
+	}
+	public getLeft double() {
+		return left;
+	}
+	public void setLeft(double left) {
+		this.left = left;
+	}
+	public getWidth double() {
+		return width;
+	}
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	public getText String() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public getHeight double() {
+		return height;
+	}
+	public void setHeight(double height) {
+		this.height = height;
+	}
+}
 ````
 
 ##License
