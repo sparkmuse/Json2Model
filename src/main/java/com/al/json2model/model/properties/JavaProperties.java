@@ -1,4 +1,4 @@
-package com.al.json2model.general;
+package com.al.json2model.model.properties;
 
 
 public interface JavaProperties {

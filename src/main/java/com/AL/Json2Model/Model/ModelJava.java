@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
-import com.al.json2model.general.JavaProperties;
 import com.al.json2model.general.Language;
+import com.al.json2model.model.properties.JavaProperties;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
