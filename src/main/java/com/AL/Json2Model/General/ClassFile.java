@@ -23,13 +23,13 @@ public class ClassFile {
 
 	
 	/**
-	 * @return the name
+	 * @return the modelName
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * @param name the name to set
+	 * @param modelName the modelName to set
 	 */
 	public void setName(String name) {
 		this.name = name;

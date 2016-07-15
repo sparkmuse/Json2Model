@@ -31,7 +31,7 @@ public class App {
 			return;
 		}
 		
-		//Get the name of the top class from the file name.
+		//Get the modelName of the top class from the file modelName.
 		String json = reader.getContent();
 		Language language = Language.JAVA;
 		String name = "ClassF";

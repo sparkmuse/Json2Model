@@ -24,7 +24,7 @@ import com.google.gson.JsonParser;
  */
 public abstract class ModelAbstract {
 	
-	protected String name;
+	protected String modelName;
 	protected String json;
 	protected HashMap<String, DataType> properties  = new HashMap<>();
 	protected Language language;
@@ -41,13 +41,13 @@ public abstract class ModelAbstract {
 
 	/**
 	 * Default constructor for the class.
-	 * @param name The name if the class
+	 * @param modelName The modelName if the class
 	 * @param json The json file string to be processed
 	 * @param language The language used for the class
 	 * @param destFolder The folder where to place the processed files.
 	 */
 	protected  ModelAbstract(String name, String json, Language language, String destFolder) {
-		this.name = name;
+		this.modelName = name;
 		this.json = json;
 		this.language = language;
 		this.destFolder = destFolder;
@@ -135,7 +135,11 @@ public abstract class ModelAbstract {
 		}
 	}
 	
-	
+	/**
+	 * Converts the properties list in a list  of DataType name separated by commas
+	 * "Color color, String text"
+	 * @return a list of DataTypes and names separated by commas.
+	 */
 	protected String getPropertiesToString() {
 		
 		StringBuilder sb = new StringBuilder();
@@ -147,23 +151,23 @@ public abstract class ModelAbstract {
 			sb.append(type).append(" ").append(t.getName()).append(", ");
 		}
 		
-		// Remove the last ',' character added.
-		return sb.substring(0, sb.length() - 1);
+		// Remove the last ', ' characters added.
+		return sb.substring(0, sb.length() - 2);
 	}
 	
 
 	/**
-	 * @return the name
+	 * @return the modelName
 	 */
 	protected String getName() {
-		return name;
+		return modelName;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param modelName the modelName to set
 	 */
 	protected void setName(String name) {
-		this.name = name;
+		this.modelName = name;
 	}
 
 	/**

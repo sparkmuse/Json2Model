@@ -29,7 +29,6 @@ import com.google.gson.JsonSyntaxException;
  */
 public class ModelJava extends ModelAbstract {
 
-
 	public ModelJava(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
@@ -132,7 +131,7 @@ public class ModelJava extends ModelAbstract {
 
 		//Java has only one class file to be created.
 		ClassFile file = new ClassFile();
-		file.setName(StringUtils.capitalize(name));
+		file.setName(StringUtils.capitalize(modelName));
 		file.setFolder(destFolder);
 		file.setExtension(".java");
 		file.setContents(getBody());
@@ -153,7 +152,7 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(CLASS_DECLARATION_START, StringUtils.capitalize(name)));
+		sb.append(String.format(CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
 		sb.append(properties);
 		sb.append(constructor);
 		sb.append(getLoadMethod());
@@ -185,9 +184,8 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(name), getPropertiesToString()));
+		sb.append(String.format(CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesToString()));
 		sb.append(CONTRUCTOR_SUPER);
-		
 
 		for (String propertyKey : properties.keySet()) {
 			DataType t = properties.get(propertyKey);
@@ -214,7 +212,7 @@ public class ModelJava extends ModelAbstract {
 			String setterName = SETTER_NAME_SUFFIX + StringUtils.capitalize(t.getName());
 		
 			// Add all the elements together.
-			sb.append(String.format(GETTER_DECLARATION_START, getterName, t.getType(), t.getName()));
+			sb.append(String.format(GETTER_DECLARATION_START,t.getType(), getterName));
 			sb.append(String.format(GETTER_BODY, t.getName()));
 			sb.append(SETTER_DECLARATION_END);
 			sb.append(String.format(SETTER_DECLARATION_START, setterName, t.getType(), t.getName()));
