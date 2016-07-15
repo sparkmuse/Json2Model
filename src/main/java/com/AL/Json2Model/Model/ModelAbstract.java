@@ -1,6 +1,8 @@
 package com.al.json2model.model;
 
 
+import static com.al.json2model.model.properties.PropertiesJava.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,6 +10,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -131,6 +135,24 @@ public abstract class ModelAbstract {
 				System.err.println(e.getMessage());
 			}
 		}
+	}
+	
+	
+	protected String getPropertiesToString() {
+		
+		StringBuilder sb = new StringBuilder();
+
+		for (String propertyKey : properties.keySet()) {
+			
+			DataType t = properties.get(propertyKey);
+			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
+			sb.append(String.format(CONSTRUCTOR_PROPERTY_ARGUMENT, type, t.getName()));
+		}
+
+		sb.append(NEW_LINE);
+		
+		return sb.toString();
+
 	}
 	
 

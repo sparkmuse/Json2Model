@@ -13,6 +13,14 @@ public final class PropertiesJava {
 
 	// The first element equals the second.
 	public static final String ASSIGNMENT = "\t\t%s = %s\n";
+	
+	// Constructor Class name, all data types and a name
+	public static final String CONSTRUCTOR_DECLARATION_START = "\tpublic %s(%s) {\n";
+	public static final String CONTRUCTOR_SUPER = "\t\tsuper();\n";
+	public static final String CONTRUCTOR_PROPERTY_ASSIGNMENT = "\t\tthis.%s = %s;\n";
+	public static final String CONTRUCTOR_DECLARATION_END = "\t}\n";
+	public static final String CONSTRUCTOR_PROPERTY_ARGUMENT = "%s %s "; 
+	
 
 	// Getter method name, data type, and name
 	public static final String GETTER_DECLARATION_START = "\tpublic %s %s() {\n";

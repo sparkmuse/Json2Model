@@ -1,22 +1,7 @@
 package com.al.json2model.model;
 
 
-import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX_BOOLEAN;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_END;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_START;
-import static com.al.json2model.model.properties.PropertiesJava.NEW_LINE;
-import static com.al.json2model.model.properties.PropertiesJava.PROPERTY_DECLARATION;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
+import static com.al.json2model.model.properties.PropertiesJava.*;
 
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -187,18 +172,30 @@ public class ModelJava extends ModelAbstract {
 			
 			DataType t = properties.get(propertyKey);
 			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
-			sb.append(String.format(PROPERTY_DECLARATION, type, t.getName()));
+			sb.append(type).append(" ").append(t.getName()).append(", ");
 		}
-
-		sb.append(NEW_LINE);
 		
-		return sb.toString();
+		// Remove the last ',' character added.
+		return sb.substring(0, sb.length() - 1);
 	}
 	
 	@Override
 	protected String getBodyConstructor(){
-		//TODO: Implement Later
-		return "";
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(String.format(CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(name), getPropertiesToString()));
+		sb.append(CONTRUCTOR_SUPER);
+		
+
+		for (String propertyKey : properties.keySet()) {
+			DataType t = properties.get(propertyKey);
+			sb.append(String.format(CONTRUCTOR_PROPERTY_ASSIGNMENT, t.getName(), t.getName()));
+		}
+		
+		sb.append(CONTRUCTOR_DECLARATION_END);
+		
+		return sb.toString();
 	}
 	
 	
