@@ -42,7 +42,7 @@ public abstract class ModelAbstract {
 	/**
 	 * Default constructor for the class.
 	 * @param modelName The modelName if the class
-	 * @param json The json file string to be processed
+	 * @param json The JSON file string to be processed
 	 * @param language The language used for the class
 	 * @param destFolder The folder where to place the processed files.
 	 */
