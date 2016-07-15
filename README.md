@@ -15,7 +15,7 @@ Json2Model (aka Broccoli) is a small little tool to help to automate the creatio
 - Navigate to folder ````/Json2Model/bin/````
 - Run the ````j2m.sh```` from the command line.
 
-Note: Make sure that the file has persions to run in your computer.
+Note: Make sure that the file has permission to run in your computer.
 
 ##Documentation 
 - Navigate to he cloned/downloaded repository
