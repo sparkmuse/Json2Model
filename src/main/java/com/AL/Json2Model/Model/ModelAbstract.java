@@ -64,6 +64,16 @@ public abstract class ModelAbstract {
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
 	
 	/**
+	 * Function to check if the value is a double or an integer.
+	 * We rely on the fact that the numbers will flow as Strings and
+	 * we try to find a decimal separator for the Locale.US
+	 * @param number The number to be checked
+	 * @return true if double, false otherwise
+	 */
+	protected abstract boolean isDouble(String number);
+	
+	
+	/**
 	 * Prepares the file for each individual class. It will get the information from
 	 * the Model, create a ClassFile object and add it to the files collection
 	 * of the model.

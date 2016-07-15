@@ -18,10 +18,13 @@ import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATI
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
 import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
 
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -108,13 +111,36 @@ public class ModelJava extends ModelAbstract {
 		if (primivitive.isBoolean()) {
 			return new DataType(entry.getKey(), "boolean", false);
 		} else if (primivitive.isNumber()) {
-			return new DataType(entry.getKey(), "double", false); //TODO: Come back to this for now Double	
+			
+			if( isDouble(primivitive.getAsString())) {
+				return new DataType(entry.getKey(), "double", false);
+			}else {
+				return new DataType(entry.getKey(), "int", false);
+			}
+			
 		} else if (primivitive.isString()) {
 			return new DataType(entry.getKey(), "String", false);
 		} else {
 			return new DataType(entry.getKey(), "Object", false);
 		}
 	}
+	
+	@Override
+	protected boolean isDouble(String number) {
+		
+		if (NumberUtils.isNumber(number)) {
+			
+			DecimalFormatSymbols dsf = new DecimalFormatSymbols(Locale.US);
+			char charSeparator = dsf.getDecimalSeparator();
+			String separator = String.valueOf(charSeparator);
+			
+			if (number.contains(separator)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 	@Override
 	protected void prepareFiles() {
