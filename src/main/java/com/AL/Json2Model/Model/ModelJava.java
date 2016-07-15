@@ -172,11 +172,12 @@ public class ModelJava extends ModelAbstract {
 			
 			DataType t = properties.get(propertyKey);
 			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
-			sb.append(type).append(" ").append(t.getName()).append(", ");
+			sb.append(String.format(PROPERTY_DECLARATION, type, t.getName()));
 		}
 		
-		// Remove the last ',' character added.
-		return sb.substring(0, sb.length() - 1);
+		sb.append(NEW_LINE);
+		
+		return sb.toString();
 	}
 	
 	@Override

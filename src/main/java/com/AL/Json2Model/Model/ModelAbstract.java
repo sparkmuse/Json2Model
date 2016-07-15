@@ -1,8 +1,6 @@
 package com.al.json2model.model;
 
 
-import static com.al.json2model.model.properties.PropertiesJava.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -146,13 +144,11 @@ public abstract class ModelAbstract {
 			
 			DataType t = properties.get(propertyKey);
 			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
-			sb.append(String.format(CONSTRUCTOR_PROPERTY_ARGUMENT, type, t.getName()));
+			sb.append(type).append(" ").append(t.getName()).append(", ");
 		}
-
-		sb.append(NEW_LINE);
 		
-		return sb.toString();
-
+		// Remove the last ',' character added.
+		return sb.substring(0, sb.length() - 1);
 	}
 	
 
