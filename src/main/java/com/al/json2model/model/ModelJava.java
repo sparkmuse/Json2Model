@@ -65,6 +65,8 @@ public class ModelJava extends ModelAbstract {
 					}else if (value.isJsonArray()) {
 						dataType = new DataType(key,"Array", true); //TODO:Fix this later.
 						
+						System.out.println("We found an array");
+						
 					}else if (value.isJsonPrimitive()) {
 						dataType = getPrimitiveDataType(entry);
 					}
@@ -85,7 +87,8 @@ public class ModelJava extends ModelAbstract {
 			System.err.println(e.getMessage());
 		}
 	}
-
+	
+	
 	@Override
 	protected DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry) {
 		
@@ -106,6 +109,12 @@ public class ModelJava extends ModelAbstract {
 		} else {
 			return new DataType(entry.getKey(), "Object", false);
 		}
+	}
+	
+	
+	private DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
+		
+		return null;
 	}
 	
 	@Override

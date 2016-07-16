@@ -64,6 +64,7 @@ public abstract class ModelAbstract {
 	 */
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
 	
+	
 	/**
 	 * Function to check if the value is a double or an integer.
 	 * We rely on the fact that the numbers will flow as Strings and

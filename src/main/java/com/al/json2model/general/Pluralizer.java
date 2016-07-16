@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 
-public class Pluralize {
+public class Pluralizer {
 	
 	/**
 	 * The word was not found in the IRREGULAR_PLURALS array.
