@@ -128,7 +128,7 @@ public abstract class ModelAbstract {
 			byte[] bytes = file.getContents().getBytes();
 			
 			try {		
-				Files.write(Paths.get(file.getFullPath()), bytes, StandardOpenOption.CREATE);
+				Files.write(Paths.get(file.getFullPath()), bytes);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
