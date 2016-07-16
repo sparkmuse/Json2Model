@@ -11,9 +11,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Class to read from a JSON file of properties and parse it.
+ * 
+ * @author alfredo
+ *
+ */
 public class PropertyReader extends JsonReader {
 	
-	private static String LANGUAGES_KEY = "languages";
+	private static final String LANGUAGES_KEY = "languages";
 
 	JsonElement jsonTree = null;
 	HashMap<String, Language> languages = new HashMap<>();
@@ -22,6 +28,9 @@ public class PropertyReader extends JsonReader {
 		super(path);
 	}
 
+	/**
+	 * Parses a JSON file into the class
+	 */
 	public void parse() {
 
 		Gson gson = new Gson();
