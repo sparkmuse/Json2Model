@@ -6,6 +6,7 @@ import com.al.json2model.general.JsonReader;
 import com.al.json2model.model.ModelJava;
 import com.al.json2model.model.properties.Language;
 import com.al.json2model.model.properties.PropertyReader;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Main application class. :)
@@ -40,7 +41,7 @@ public class App {
 		}
 		
 		//Get the modelName of the top class from the file modelName.
-		String name = "ClassF";
+		String name = FilenameUtils.getBaseName(arguments.getInputFile());
 		String json = reader.getContent();
 		Language language =  pr.getLanguages().get(arguments.getLanguage());
 		String outputFolder = arguments.getOutputFolder();
