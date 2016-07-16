@@ -1,15 +1,10 @@
 package com.al.json2model;
 
-import java.io.IOException;
-
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
-import com.al.json2model.general.Language;
 import com.al.json2model.model.ModelJava;
 import com.al.json2model.model.properties.PropertyReader;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * Main application class. :)
@@ -25,9 +20,9 @@ public class App {
 		PropertyReader pr = new PropertyReader(PROPERTIES_FILE);
 		pr.read();
 		pr.parse();
+
 		
-		
-		ArgumentParser v = new ArgumentParser();
+		ArgumentParser v = new ArgumentParser(pr.getLanguages().keySet());
 		v.parse(args);
 		
 		Arguments arguments = v.getArguments();
@@ -44,12 +39,13 @@ public class App {
 		}
 		
 		//Get the modelName of the top class from the file modelName.
-		String json = reader.getContent();
-		Language language = Language.JAVA;
 		String name = "ClassF";
+		String json = reader.getContent();
+		String language = arguments.getLanguage();
+		String outputFolder = arguments.getOutputFolder();
 		
 		
-		ModelJava m = new ModelJava(name, json, language, arguments.getOutputFolder());
+		ModelJava m = new ModelJava(name, json, language, outputFolder);
 		m.parse();
 		m.save();
 	}

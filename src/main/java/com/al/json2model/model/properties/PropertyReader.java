@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.al.json2model.general.JsonReader;
+import com.al.json2model.model.properties.Language;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -56,4 +57,28 @@ public class PropertyReader extends JsonReader {
 			System.err.println(e.getMessage());
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return languages.toString();
+	}
+
+	/**
+	 * @return the languages
+	 */
+	public HashMap<String, Language> getLanguages() {
+		return languages;
+	}
+
+	/**
+	 * @param languages the languages to set
+	 */
+	public void setLanguages(HashMap<String, Language> languages) {
+		this.languages = languages;
+	}
+	
+	
 }

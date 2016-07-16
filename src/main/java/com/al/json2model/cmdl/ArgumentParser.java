@@ -1,6 +1,7 @@
 package com.al.json2model.cmdl;
 
 import java.io.File;
+import java.util.Set;
 
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -8,9 +9,7 @@ import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang3.EnumUtils;
 
-import com.al.json2model.general.Language;
 
 /**
  * Class to parse the command line arguments and populate the the Arguments
@@ -31,10 +30,12 @@ public class ArgumentParser extends DefaultParser{
 	
 	//Internal helpers
 	Options options = new Options();
+	Set<String> languages = null;
 
 	
-	public ArgumentParser() {
+	public ArgumentParser(Set<String> languages ) {
 		super();
+		this.languages = languages;
 		setOptions();
 	}
 
@@ -54,7 +55,7 @@ public class ArgumentParser extends DefaultParser{
 		
 		longOpt = "language";
 		argName = "LANG";
-		desc = "The language for the file output.\n Allowed langauges:\n" +  EnumUtils.getEnumList(Language.class).toString();
+		desc = "The language for the file output.\n Allowed languages:\n" + languages.toString();
 		Option lang = Option.builder(OPTION_LANGUAGE).longOpt(longOpt).argName(argName).desc(desc).hasArg().build();
 		options.addOption(lang);
 		
@@ -96,7 +97,7 @@ public class ArgumentParser extends DefaultParser{
 				}
 				
 				if (cmd.hasOption(OPTION_LANGUAGE)) {
-					Language language = Language.valueOf(cmd.getOptionValue(OPTION_LANGUAGE).toUpperCase());
+					String language = cmd.getOptionValue(OPTION_LANGUAGE);
 					arguments.setLanguage(language);
 				}else {
 					throw new MissingArgumentException(currentOption);

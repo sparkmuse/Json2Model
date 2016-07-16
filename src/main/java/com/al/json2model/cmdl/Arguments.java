@@ -1,7 +1,6 @@
 package com.al.json2model.cmdl;
 
 import java.io.File;
-import com.al.json2model.general.Language;
 
 /**
  * Class to hold the arguments passed by the command line after they have been
@@ -14,13 +13,13 @@ public class Arguments {
 	
 	private String inputFile = null;
 	private String outputFolder = null;
-	private Language language = Language.UNKNOWN;
+	private String language = null;
 	
 	public Arguments() {
 		super();
 	}
 	
-	public Arguments(String inputFile, String outputFolder, Language language) {
+	public Arguments(String inputFile, String outputFolder, String language) {
 		super();
 		this.inputFile = inputFile;
 		this.outputFolder = outputFolder;
@@ -67,7 +66,7 @@ public class Arguments {
 	private boolean hasDefaultValues() {
 		return  (inputFile == null && 
 				 outputFolder == null && 
-				 language == Language.UNKNOWN);
+				 language == null);
 	}
 	
 	
@@ -111,13 +110,13 @@ public class Arguments {
 	/**
 	 * @return the language
 	 */
-	public Language getLanguage() {
+	public String getLanguage() {
 		return language;
 	}
 	/**
 	 * @param language the language to set
 	 */
-	public void setLanguage(Language language) {
+	public void setLanguage(String language) {
 		this.language = language;
 	}
 	

@@ -1,7 +1,26 @@
 package com.al.json2model.model;
 
 
-import static com.al.json2model.model.properties.PropertiesJava.*;
+import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_END;
+import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_START;
+import static com.al.json2model.model.properties.PropertiesJava.CONSTRUCTOR_DECLARATION_START;
+import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_DECLARATION_END;
+import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_PROPERTY_ASSIGNMENT;
+import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_SUPER;
+import static com.al.json2model.model.properties.PropertiesJava.GETTER_BODY;
+import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_END;
+import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_START;
+import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX;
+import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX_BOOLEAN;
+import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_BODY;
+import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_END;
+import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_START;
+import static com.al.json2model.model.properties.PropertiesJava.NEW_LINE;
+import static com.al.json2model.model.properties.PropertiesJava.PROPERTY_DECLARATION;
+import static com.al.json2model.model.properties.PropertiesJava.SETTER_BODY;
+import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_END;
+import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
+import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
 
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -13,7 +32,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
-import com.al.json2model.general.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -29,7 +47,7 @@ import com.google.gson.JsonSyntaxException;
  */
 public class ModelJava extends ModelAbstract {
 
-	public ModelJava(String name, String json, Language language, String destFolder) {
+	public ModelJava(String name, String json, String language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
 	
