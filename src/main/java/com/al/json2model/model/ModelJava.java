@@ -105,8 +105,7 @@ public class ModelJava extends ModelAbstract {
 				return new DataType(entry.getKey(), "double", false);
 			}else {
 				return new DataType(entry.getKey(), "int", false);
-			}
-			
+			}	
 		} else if (primivitive.isString()) {
 			return new DataType(entry.getKey(), "String", false);
 		} else {
