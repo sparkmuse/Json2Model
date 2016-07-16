@@ -3,6 +3,7 @@ package com.al.json2model;
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
+import com.al.json2model.general.Pluralize;
 import com.al.json2model.model.ModelJava;
 import com.al.json2model.model.properties.Language;
 import com.al.json2model.model.properties.PropertyReader;
