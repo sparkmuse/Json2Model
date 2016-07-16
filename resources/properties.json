@@ -1,6 +1,7 @@
 {
 	"languages": {
 		"JAVA": {
+			"LANGUAGE_NAME": "JAVA",
 			"NEW_LINE": "\n",
 			"CLASS_DECLARATION_START": "public class %s {\n\n",
 			"CLASS_DECLARATION_END": "}\n",

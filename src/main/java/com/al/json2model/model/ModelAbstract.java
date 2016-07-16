@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
+import com.al.json2model.model.properties.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -26,7 +27,7 @@ public abstract class ModelAbstract {
 	protected String modelName;
 	protected String json;
 	protected HashMap<String, DataType> properties  = new HashMap<>();
-	protected String language;
+	protected Language language;
 	protected boolean topObject = true;
 	
 	//Object needed for the serialization.
@@ -45,7 +46,7 @@ public abstract class ModelAbstract {
 	 * @param language The language used for the class
 	 * @param destFolder The folder where to place the processed files.
 	 */
-	protected  ModelAbstract(String name, String json, String language, String destFolder) {
+	protected  ModelAbstract(String name, String json, Language language, String destFolder) {
 		this.modelName = name;
 		this.json = json;
 		this.language = language;
@@ -200,14 +201,14 @@ public abstract class ModelAbstract {
 	/**
 	 * @return the language
 	 */
-	protected String getLanguage() {
+	protected Language getLanguage() {
 		return language;
 	}
 
 	/**
 	 * @param language the language to set
 	 */
-	protected void setLanguage(String language) {
+	protected void setLanguage(Language language) {
 		this.language = language;
 	}
 

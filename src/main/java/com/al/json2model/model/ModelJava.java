@@ -1,27 +1,6 @@
 package com.al.json2model.model;
 
 
-import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.CLASS_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.CONSTRUCTOR_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_PROPERTY_ASSIGNMENT;
-import static com.al.json2model.model.properties.PropertiesJava.CONTRUCTOR_SUPER;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX;
-import static com.al.json2model.model.properties.PropertiesJava.GETTER_NAME_SUFFIX_BOOLEAN;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_END;
-import static com.al.json2model.model.properties.PropertiesJava.METHOD_LOAD_START;
-import static com.al.json2model.model.properties.PropertiesJava.NEW_LINE;
-import static com.al.json2model.model.properties.PropertiesJava.PROPERTY_DECLARATION;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_BODY;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_END;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_DECLARATION_START;
-import static com.al.json2model.model.properties.PropertiesJava.SETTER_NAME_SUFFIX;
-
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Map;
@@ -32,6 +11,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
+import com.al.json2model.model.properties.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -46,8 +26,9 @@ import com.google.gson.JsonSyntaxException;
  *
  */
 public class ModelJava extends ModelAbstract {
-
-	public ModelJava(String name, String json, String language, String destFolder) {
+	
+	
+	public ModelJava(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
 	
@@ -170,12 +151,12 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
+		sb.append(String.format(language.CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
 		sb.append(properties);
 		sb.append(constructor);
 		sb.append(getLoadMethod());
 		sb.append(getterAndSetters);
-		sb.append(CLASS_DECLARATION_END);
+		sb.append(language.CLASS_DECLARATION_END);
 		
 		return sb.toString();
 	}
@@ -189,10 +170,10 @@ public class ModelJava extends ModelAbstract {
 			
 			DataType t = properties.get(propertyKey);
 			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
-			sb.append(String.format(PROPERTY_DECLARATION, type, t.getName()));
+			sb.append(String.format(language.PROPERTY_DECLARATION, type, t.getName()));
 		}
 		
-		sb.append(NEW_LINE);
+		sb.append(language.NEW_LINE);
 		
 		return sb.toString();
 	}
@@ -202,15 +183,15 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesToString()));
-		sb.append(CONTRUCTOR_SUPER);
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesToString()));
+		sb.append(language.CONTRUCTOR_SUPER);
 
 		for (String propertyKey : properties.keySet()) {
 			DataType t = properties.get(propertyKey);
-			sb.append(String.format(CONTRUCTOR_PROPERTY_ASSIGNMENT, t.getName(), t.getName()));
+			sb.append(String.format(language.CONTRUCTOR_PROPERTY_ASSIGNMENT, t.getName(), t.getName()));
 		}
 		
-		sb.append(CONTRUCTOR_DECLARATION_END);
+		sb.append(language.CONTRUCTOR_DECLARATION_END);
 		
 		return sb.toString();
 	}
@@ -224,18 +205,18 @@ public class ModelJava extends ModelAbstract {
 		for (String propertyKey : properties.keySet()) {
 			
 			DataType t = properties.get(propertyKey);
-			String getterSuffix = t.getType().equals("boolean") ? GETTER_NAME_SUFFIX_BOOLEAN : GETTER_NAME_SUFFIX;
+			String getterSuffix = t.getType().equals("boolean") ? language.GETTER_NAME_SUFFIX_BOOLEAN : language.GETTER_NAME_SUFFIX;
 			
 			String getterName = getterSuffix + StringUtils.capitalize(t.getName());
-			String setterName = SETTER_NAME_SUFFIX + StringUtils.capitalize(t.getName());
+			String setterName = language.SETTER_NAME_SUFFIX + StringUtils.capitalize(t.getName());
 		
 			// Add all the elements together.
-			sb.append(String.format(GETTER_DECLARATION_START,t.getType(), getterName));
-			sb.append(String.format(GETTER_BODY, t.getName()));
-			sb.append(SETTER_DECLARATION_END);
-			sb.append(String.format(SETTER_DECLARATION_START, setterName, t.getType(), t.getName()));
-			sb.append(String.format(SETTER_BODY, t.getName(), t.getName()));
-			sb.append(GETTER_DECLARATION_END);
+			sb.append(String.format(language.GETTER_DECLARATION_START,t.getType(), getterName));
+			sb.append(String.format(language.GETTER_BODY, t.getName()));
+			sb.append(language.SETTER_DECLARATION_END);
+			sb.append(String.format(language.SETTER_DECLARATION_START, setterName, t.getType(), t.getName()));
+			sb.append(String.format(language.SETTER_BODY, t.getName(), t.getName()));
+			sb.append(language.GETTER_DECLARATION_END);
 		}
 		
 		return sb.toString();
@@ -250,9 +231,9 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(METHOD_LOAD_START);
-		sb.append(METHOD_LOAD_BODY);
-		sb.append(METHOD_LOAD_END);
+		sb.append(language.METHOD_LOAD_START);
+		sb.append(language.METHOD_LOAD_BODY);
+		sb.append(language.METHOD_LOAD_END);
 		
 		return sb.toString();
 		

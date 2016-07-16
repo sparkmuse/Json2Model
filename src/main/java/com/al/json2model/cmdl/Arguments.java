@@ -111,7 +111,7 @@ public class Arguments {
 	 * @return the language
 	 */
 	public String getLanguage() {
-		return language;
+		return  language.toUpperCase();
 	}
 	/**
 	 * @param language the language to set

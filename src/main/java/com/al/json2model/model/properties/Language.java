@@ -2,6 +2,7 @@ package com.al.json2model.model.properties;
 
 public class Language {
 	
+	public String LANGUAGE_NAME;
 	public String METHOD_LOAD_BODY;
 	public String CONTRUCTOR_PROPERTY_ASSIGNMENT;
 	public String SETTER_DECLARATION_END;
