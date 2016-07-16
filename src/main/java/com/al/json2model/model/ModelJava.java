@@ -11,7 +11,9 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
+import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -63,7 +65,8 @@ public class ModelJava extends ModelAbstract {
 						m.save();
 						
 					}else if (value.isJsonArray()) {
-						dataType = new DataType(key,"Array", true); //TODO:Fix this later.
+						
+						dataType = getArrayDataType(entry);
 						
 						System.out.println("We found an array");
 						
@@ -114,7 +117,24 @@ public class ModelJava extends ModelAbstract {
 	
 	private DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
 		
-		return null;
+		JsonArray array = entry.getValue().getAsJsonArray();
+		
+		String name = entry.getKey();
+		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
+		String type = "ArrayList<" + nameClass + ">";
+		
+		for (JsonElement jsonElement : array) {
+			
+			//Recursive way to get all the elements
+			ModelJava m = new ModelJava(nameClass, jsonElement.toString(), language, destFolder);
+			m.topObject = false;
+			m.parse();
+			m.save();
+		}
+		
+		//Gets the ArrayList Type itself.
+		DataType dt = new DataType(name, type, false);
+		return dt;
 	}
 	
 	@Override
