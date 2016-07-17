@@ -9,12 +9,11 @@ import com.al.json2model.model.properties.PropertyReader;
 
 public class ModelFactory {
 
-
 	public static ModelAbstract build(Arguments arguments, JsonReader reader, PropertyReader properties) {
 		
 		ModelAbstract model = null;
 		
-		// Get the parameters read.
+		// Get the parameters for the model.
 		String name = FilenameUtils.getBaseName(arguments.getInputFile());
 		String json = reader.getContent();
 		Language language = properties.getLanguages().get(arguments.getLanguage());
@@ -23,6 +22,7 @@ public class ModelFactory {
 		
 		String lang = language.LANGUAGE_NAME;
 		
+		// Dispenser
 		if (lang.equalsIgnoreCase("java")) {
 			
 			model = new ModelJava(name, json, language, outputFolder);
@@ -31,9 +31,11 @@ public class ModelFactory {
 			
 			model = new ModelCSharp(name, json, language, outputFolder);
 			
+		} else if (lang.equalsIgnoreCase("java_script")) {
+			
+			model = new ModelJavaScript(name, json, language, outputFolder);
 		}
 
 		return model;
 	}
-
 }

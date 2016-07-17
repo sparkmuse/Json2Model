@@ -47,6 +47,9 @@
 			"METHOD_LOAD_START": "\tpublic void load() {\n",
 			"METHOD_LOAD_BODY": "\t\t//TODO: Needs to be implemented.\n",
 			"METHOD_LOAD_END": "\t}\n\n"
+		},
+		"JAVA_SCRIPT": {
+			"LANGUAGE_NAME": "JAVA_SCRIPT"
 		}
 	}
 }
