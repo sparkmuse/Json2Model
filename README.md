@@ -29,7 +29,7 @@ A very small tool for people to get things done fast! :)
  -f,--file <FILE>          The file to be processed.
  -h,--help                 Help
  -lang,--language <LANG>   The language for the file output.
-                           Allowed langauges:
+                           Allowed languages:
                            [C, OBJECTIVE_C, JAVA, SWIFT, VISUAL_BASIC,
                            VBA, UNKNOWN]
  -o,--out <DIR>            The directory where to place the processed
@@ -103,6 +103,31 @@ public class ClassF {
 	public void setHeight(double height) {
 		this.height = height;
 	}
+}
+````
+
+##Report a Bug or Contribute
+
+- Navigate to the bug section tab on GitHub.
+- Create a new Issue. If you are not sure how to create a new issue follow this link for instructions [Creating an issue](https://help.github.com/articles/creating-an-issue/)
+
+- For new language support include sample of the class/structure in the body of the issue. Use this JSON text:
+
+````json
+{
+	"customer":{
+		"firstName": "John",
+		"lastName": "Doe"
+	},
+	"addresses": [
+		{
+			"street": "Faraway Creek",
+			"number": 1234,
+			"city":	"Never-land"
+		}
+	],
+	"balance": 23234.23,
+	"active": true
 }
 ````
 
