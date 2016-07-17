@@ -1,6 +1,9 @@
 package com.al.json2model.cmdl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.cli.DefaultParser;
@@ -30,12 +33,12 @@ public class ArgumentParser extends DefaultParser{
 	
 	//Internal helpers
 	Options options = new Options();
-	Set<String> languages = null;
+	List<String> languages = null;
 
 	
 	public ArgumentParser(Set<String> languages ) {
 		super();
-		this.languages = languages;
+		this.languages = new ArrayList<>(languages);
 		setOptions();
 	}
 
@@ -52,7 +55,7 @@ public class ArgumentParser extends DefaultParser{
 		Option file = Option.builder(OPTION_FILE).longOpt(longOpt).argName(argName).desc(desc).hasArg().build();
 		options.addOption(file);
 		
-		
+		Collections.sort(this.languages);
 		longOpt = "language";
 		argName = "LANG";
 		desc = "The language for the file output.\n Allowed languages:\n" + languages.toString();
