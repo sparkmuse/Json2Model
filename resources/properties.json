@@ -33,7 +33,7 @@
 			"ASSIGNMENT": "\t\t%s = %s\n",
 			"CONSTRUCTOR_DECLARATION_START": "\tpublic %s(%s) {\n",
 			"CONTRUCTOR_SUPER": "",
-			"CONTRUCTOR_PROPERTY_ASSIGNMENT": "\t\t%s = %s;\n",
+			"CONTRUCTOR_PROPERTY_ASSIGNMENT": "\t\tthis.%s = %s;\n",
 			"CONTRUCTOR_DECLARATION_END": "\t}\n\n",
 			"GETTER_DECLARATION_START": "",
 			"GETTER_DECLARATION_END": "",

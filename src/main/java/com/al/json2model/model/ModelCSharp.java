@@ -30,6 +30,13 @@ import com.google.gson.JsonSyntaxException;
  */
 public class ModelCSharp extends ModelAbstract {
 	
+	/**
+	 * Default constructor.
+	 * @param name Name of the class to be created.
+	 * @param json JSON file to use as a blueprint.
+	 * @param language The language used for the class to be created.
+	 * @param destFolder Destination folder where to put the file(s).
+	 */
 	
 	public ModelCSharp(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
@@ -59,24 +66,18 @@ public class ModelCSharp extends ModelAbstract {
 					if (value.isJsonObject()) {		
 						dataType = new DataType(key, key, true);
 						
-						//Recursive way to get all the elements
-						ModelCSharp m = new ModelCSharp(key, value.toString(), language, destFolder);
-						m.topObject = false;
-						m.parse();
-						m.save();
+						processChildrenObjects(key, value);
 						
 					}else if (value.isJsonArray()) {
-						
 						dataType = getArrayDataType(entry);
 						
-						System.out.println("We found an array");
+						processArray(entry);
 						
 					}else if (value.isJsonPrimitive()) {
 						dataType = getPrimitiveDataType(entry);
 					}
 
 					properties.put(key, dataType);
-					
 				}	
 			}	
 			
@@ -94,6 +95,26 @@ public class ModelCSharp extends ModelAbstract {
 	
 	
 	@Override
+	protected void processArray(Entry<String, JsonElement> entry) {
+		
+		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
+		
+		//Recursively process the inner elements
+		JsonArray array = entry.getValue().getAsJsonArray();
+		for (JsonElement jsonElement : array) {
+			processChildrenObjects(nameClass, jsonElement);
+		}
+	}
+
+	@Override
+	protected void processChildrenObjects(String key, JsonElement value) {
+		ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
+		m.topObject = false;
+		m.parse();
+		m.save();
+	}
+	
+	@Override
 	protected DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry) {
 		
 		JsonPrimitive primivitive = entry.getValue().getAsJsonPrimitive();
@@ -105,10 +126,10 @@ public class ModelCSharp extends ModelAbstract {
 			if( isDouble(primivitive.getAsString())) {
 				return new DataType(entry.getKey(), "double", false);
 			}else {
-				return new DataType(entry.getKey(), "long", false);
+				return new DataType(entry.getKey(), "int", false);
 			}	
 		} else if (primivitive.isString()) {
-			return new DataType(entry.getKey(), "String", false);
+			return new DataType(entry.getKey(), "string", false);
 		} else {
 			return new DataType(entry.getKey(), "Object", false);
 		}	
@@ -117,12 +138,13 @@ public class ModelCSharp extends ModelAbstract {
 	@Override
 	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
 		
-		JsonArray array = entry.getValue().getAsJsonArray();
+		
 		
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
 		String type = "List<" + nameClass + ">";
 		
+		JsonArray array = entry.getValue().getAsJsonArray();
 		for (JsonElement jsonElement : array) {
 			
 			//Recursive way to get all the elements
@@ -246,18 +268,6 @@ public class ModelCSharp extends ModelAbstract {
 		sb.append(language.METHOD_LOAD_END);
 		
 		return sb.toString();
-		
-	}
-
-	@Override
-	protected void processArray(Entry<String, JsonElement> entry) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void processChildrenObjects(String key, JsonElement value) {
-		// TODO Auto-generated method stub
 		
 	}
 
