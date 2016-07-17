@@ -1,12 +1,10 @@
 package com.al.json2model;
 
-import org.apache.commons.io.FilenameUtils;
-
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
-import com.al.json2model.model.ModelJava;
-import com.al.json2model.model.properties.Language;
+import com.al.json2model.model.ModelAbstract;
+import com.al.json2model.model.ModelFactory;
 import com.al.json2model.model.properties.PropertyReader;
 
 /**
@@ -25,31 +23,19 @@ public class App {
 		pr.parse();
 
 		
-		ArgumentParser v = new ArgumentParser(pr.getLanguages().keySet());
-		v.parse(args);
+		ArgumentParser argParser = new ArgumentParser(pr.getLanguages().keySet());
+		argParser.parse(args);
 		
-		Arguments arguments = v.getArguments();
-		if (!arguments.isValid()) {
-			return;
+		Arguments arguments = argParser.getArguments();
+		
+		if (arguments.isValid()) {
+			
+			JsonReader reader = new JsonReader(arguments.getInputFile());
+			reader.read();
+			
+			ModelAbstract model = ModelFactory.build(arguments, reader, pr);
+			model.parse();
+			model.save();
 		}
-		
-		
-		JsonReader reader = new JsonReader(arguments.getInputFile());
-		reader.read();
-		
-		if(reader.getContent() == null) {
-			return;
-		}
-		
-		//Get the modelName of the top class from the file modelName.
-		String name = FilenameUtils.getBaseName(arguments.getInputFile());
-		String json = reader.getContent();
-		Language language =  pr.getLanguages().get(arguments.getLanguage());
-		String outputFolder = arguments.getOutputFolder();
-		
-		
-		ModelJava m = new ModelJava(name, json, language, outputFolder);
-		m.parse();
-		m.save();
 	}
 }

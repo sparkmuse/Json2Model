@@ -55,7 +55,7 @@ public abstract class ModelAbstract {
 	/**
 	 * Method to parse the contents.
 	 */
-	protected abstract void parse();
+	public abstract void parse();
 	
 	/**
 	 * Method to process the data if they are primitive.

@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  */
 public class JsonReader {
 	
-	private String content = null;
+	private String content = "";
 	private String filePath = null;
 	
 	public JsonReader(String path) {

@@ -23,6 +23,30 @@
 			"METHOD_LOAD_START": "\tpublic void load() {\n",
 			"METHOD_LOAD_BODY": "\t\t//TODO: Needs to be implemented.\n",
 			"METHOD_LOAD_END": "\t}\n\n"
+		},
+		"C_SHARP": {
+			"LANGUAGE_NAME": "C_SHARP",
+			"NEW_LINE": "\n",
+			"CLASS_DECLARATION_START": "public class %s\n{\n",
+			"CLASS_DECLARATION_END": "}\n",
+			"PROPERTY_DECLARATION": "\tpublic %s %s { get; set; }\n",
+			"ASSIGNMENT": "\t\t%s = %s\n",
+			"CONSTRUCTOR_DECLARATION_START": "\tpublic %s(%s) {\n",
+			"CONTRUCTOR_SUPER": "",
+			"CONTRUCTOR_PROPERTY_ASSIGNMENT": "\t\t%s = %s;\n",
+			"CONTRUCTOR_DECLARATION_END": "\t}\n\n",
+			"GETTER_DECLARATION_START": "",
+			"GETTER_DECLARATION_END": "",
+			"GETTER_NAME_SUFFIX": "",
+			"GETTER_NAME_SUFFIX_BOOLEAN": "",
+			"GETTER_BODY": "",
+			"SETTER_DECLARATION_START": "",
+			"SETTER_DECLARATION_END": "",
+			"SETTER_NAME_SUFFIX": "",
+			"SETTER_BODY": "",
+			"METHOD_LOAD_START": "\tpublic void load() {\n",
+			"METHOD_LOAD_BODY": "\t\t//TODO: Needs to be implemented.\n",
+			"METHOD_LOAD_END": "\t}\n\n"
 		}
 	}
 }
