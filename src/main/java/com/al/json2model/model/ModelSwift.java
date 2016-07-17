@@ -1,14 +1,9 @@
 package com.al.json2model.model;
 
 
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -16,10 +11,7 @@ import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * Model class for Java. This class will be in charge to model the data and produce
@@ -33,62 +25,6 @@ public class ModelSwift extends ModelAbstract {
 	
 	public ModelSwift(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
-	}
-	
-	@Override
-	public void parse() {
-
-		JsonElement jsonTree = null;
-		
-		try {
-			jsonTree = parser.parse(super.getJson());
-			
-			if (jsonTree.isJsonObject()) {
-				JsonObject rootObject = jsonTree.getAsJsonObject(); // we assume the top object is an object.
-
-				// Get all the keys
-				Set<Map.Entry<String, JsonElement>> entrySet = rootObject.entrySet();
-
-				// Iterate through them
-				for (Map.Entry<String, JsonElement> entry : entrySet) {
-
-					String key = entry.getKey();
-					JsonElement value = entry.getValue();
-					DataType dataType = null;
-					
-					if (value.isJsonObject()) {		
-						dataType = new DataType(key, key, true);
-						
-						//Recursive way to get all the elements
-						ModelSwift m = new ModelSwift(key, value.toString(), language, destFolder);
-						m.topObject = false;
-						m.parse();
-						m.save();
-						
-					}else if (value.isJsonArray()) {
-						
-						dataType = getArrayDataType(entry);
-						
-						System.out.println("We found an array");
-						
-					}else if (value.isJsonPrimitive()) {
-						dataType = getPrimitiveDataType(entry);
-					}
-
-					properties.put(key, dataType);
-					
-				}	
-			}	
-			
-			// Process the file properties
-			prepareFiles();
-			
-			
-		} catch (JsonSyntaxException e) {
-			System.err.println(e.getMessage());
-		} catch (JsonParseException e) {
-			System.err.println(e.getMessage());
-		}
 	}
 	
 	
@@ -134,22 +70,6 @@ public class ModelSwift extends ModelAbstract {
 		//Gets the ArrayList Type itself.
 		DataType dt = new DataType(name, type, false);
 		return dt;
-	}
-	
-	@Override
-	protected boolean isDouble(String number) {
-		
-		if (NumberUtils.isNumber(number)) {
-			
-			DecimalFormatSymbols dsf = new DecimalFormatSymbols(Locale.US);
-			char charSeparator = dsf.getDecimalSeparator();
-			String separator = String.valueOf(charSeparator);
-			
-			if (number.contains(separator)) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 
@@ -287,17 +207,4 @@ public class ModelSwift extends ModelAbstract {
 		return sb.toString();
 		
 	}
-
-	@Override
-	protected void processArray(Entry<String, JsonElement> entry) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void processChildrenObjects(String key, JsonElement value) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

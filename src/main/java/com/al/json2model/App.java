@@ -1,10 +1,13 @@
 package com.al.json2model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
 import com.al.json2model.model.ModelAbstract;
 import com.al.json2model.model.ModelFactory;
+import com.al.json2model.model.properties.Language;
 import com.al.json2model.model.properties.PropertyReader;
 
 /**
@@ -32,7 +35,14 @@ public class App {
 			JsonReader reader = new JsonReader(arguments.getInputFile());
 			reader.read();
 			
-			ModelAbstract model = ModelFactory.build(arguments, reader, pr);
+			// Get the parameters for the model.
+			String name = FilenameUtils.getBaseName(arguments.getInputFile());
+			String json = reader.getContent();
+			Language language = pr.getLanguages().get(arguments.getLanguage());
+			String outputFolder = arguments.getOutputFolder();
+			
+			
+			ModelAbstract model = ModelFactory.build(name, json, language, outputFolder);
 			model.parse();
 			model.save();
 		}

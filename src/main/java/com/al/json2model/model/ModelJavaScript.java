@@ -26,66 +26,55 @@ public class ModelJavaScript extends ModelAbstract {
 		String funnnyMessage = "...do you really need this for JavaScript? :)";
 		System.out.println(funnnyMessage);
 	}
+
 	
-	
-	@Override
-	public void save() {
-	}
-
-	@Override
-	protected DataType getPrimitiveDataType(Entry<String, JsonElement> entry) {
-		return null;
-	}
-
-	@Override
-	protected boolean isDouble(String number) {
-		return false;
-	}
-
-	@Override
-	protected void prepareFiles() {
-	}
-
-	@Override
-	protected String getBody() {
-		return null;
-	}
-
-	@Override
-	protected String getBodyProperties() {
-		return null;
-	}
-
-	@Override
-	protected String getBodyConstructor() {
-		return null;
-	}
-
-	@Override
-	protected String getBodyGettersAndSetters() {
-		return null;
-	}
-
-	@Override
-	protected String getLoadMethod() {
-		return null;
-	}
-
-	@Override
-	protected void processArray(Entry<String, JsonElement> entry) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void processChildrenObjects(String key, JsonElement value) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	protected DataType getArrayDataType(Entry<String, JsonElement> entry) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	protected DataType getPrimitiveDataType(Entry<String, JsonElement> entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void prepareFiles() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected String getBody() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getBodyProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getBodyConstructor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getBodyGettersAndSetters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getLoadMethod() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

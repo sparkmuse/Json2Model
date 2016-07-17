@@ -1,25 +1,17 @@
 package com.al.json2model.model;
 
 
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
 import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * Model class for Java. This class will be in charge to model the data and produce
@@ -42,77 +34,6 @@ public class ModelCSharp extends ModelAbstract {
 		super(name, json, language, destFolder);
 	}
 	
-	@Override
-	public void parse() {
-
-		JsonElement jsonTree = null;
-		
-		try {
-			jsonTree = parser.parse(super.getJson());
-			
-			if (jsonTree.isJsonObject()) {
-				JsonObject rootObject = jsonTree.getAsJsonObject(); // we assume the top object is an object.
-
-				// Get all the keys
-				Set<Map.Entry<String, JsonElement>> entrySet = rootObject.entrySet();
-
-				// Iterate through them
-				for (Map.Entry<String, JsonElement> entry : entrySet) {
-
-					String key = entry.getKey();
-					JsonElement value = entry.getValue();
-					DataType dataType = null;
-					
-					if (value.isJsonObject()) {		
-						dataType = new DataType(key, key, true);
-						
-						processChildrenObjects(key, value);
-						
-					}else if (value.isJsonArray()) {
-						dataType = getArrayDataType(entry);
-						
-						processArray(entry);
-						
-					}else if (value.isJsonPrimitive()) {
-						dataType = getPrimitiveDataType(entry);
-					}
-
-					properties.put(key, dataType);
-				}	
-			}	
-			
-			// Process the file properties
-			prepareFiles();
-			
-			
-		} catch (JsonSyntaxException e) {
-			
-			System.err.println(e.getMessage());
-		} catch (JsonParseException e) {
-			System.err.println(e.getMessage());
-		}
-	}
-	
-	
-	@Override
-	protected void processArray(Entry<String, JsonElement> entry) {
-		
-		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
-		
-		//Recursively process the inner elements
-		JsonArray array = entry.getValue().getAsJsonArray();
-		for (JsonElement jsonElement : array) {
-			processChildrenObjects(nameClass, jsonElement);
-		}
-	}
-
-	@Override
-	protected void processChildrenObjects(String key, JsonElement value) {
-		ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
-		m.topObject = false;
-		m.parse();
-		m.save();
-	}
 	
 	@Override
 	protected DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry) {
@@ -131,51 +52,21 @@ public class ModelCSharp extends ModelAbstract {
 		} else if (primivitive.isString()) {
 			return new DataType(entry.getKey(), "string", false);
 		} else {
-			return new DataType(entry.getKey(), "Object", false);
+			return new DataType(entry.getKey(), "object", false);
 		}	
 	}
 	
 	@Override
-	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
-		
-		
+	protected DataType getArrayDataType(Entry<String, JsonElement> entry) {
 		
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
 		String type = "List<" + nameClass + ">";
 		
-		JsonArray array = entry.getValue().getAsJsonArray();
-		for (JsonElement jsonElement : array) {
-			
-			//Recursive way to get all the elements
-			ModelCSharp m = new ModelCSharp(nameClass, jsonElement.toString(), language, destFolder);
-			m.topObject = false;
-			m.parse();
-			m.save();
-		}
-		
-		//Gets the ArrayList Type itself.
-		DataType dt = new DataType(name, type, false);
-		return dt;
+		return new DataType(name, type, false);
 	}
 	
-	@Override
-	protected boolean isDouble(String number) {
-		
-		if (NumberUtils.isNumber(number)) {
-			
-			DecimalFormatSymbols dsf = new DecimalFormatSymbols(Locale.US);
-			char charSeparator = dsf.getDecimalSeparator();
-			String separator = String.valueOf(charSeparator);
-			
-			if (number.contains(separator)) {
-				return true;
-			}
-		}
-		return false;
-	}
 	
-
 	@Override
 	protected void prepareFiles() {
 
@@ -270,5 +161,4 @@ public class ModelCSharp extends ModelAbstract {
 		return sb.toString();
 		
 	}
-
 }

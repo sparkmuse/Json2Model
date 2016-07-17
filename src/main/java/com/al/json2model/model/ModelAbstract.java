@@ -4,17 +4,26 @@ package com.al.json2model.model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
+import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Model class from which all the other models will be derived.
@@ -42,10 +51,10 @@ public abstract class ModelAbstract {
 	 * Default constructor for the class.
 	 * @param modelName The modelName if the class
 	 * @param json The JSON file string to be processed
-	 * @param language The language used for the class
+	 * @param langucccage The language used for the class
 	 * @param destFolder The folder where to place the processed files.
 	 */
-	protected  ModelAbstract(String name, String json, Language language, String destFolder) {
+	public  ModelAbstract(String name, String json, Language language, String destFolder) {
 		this.modelName = name;
 		this.json = json;
 		this.language = language;
@@ -55,21 +64,74 @@ public abstract class ModelAbstract {
 	/**
 	 * Method to parse the contents.
 	 */
-	public abstract void parse();
+	public void parse() {
+
+		JsonElement jsonTree = null;
+		
+		try {
+			jsonTree = parser.parse(json);
+			
+			if (jsonTree.isJsonObject()) {
+				JsonObject rootObject = jsonTree.getAsJsonObject(); // we assume the top object is an object.
+
+				// Get all the keys
+				Set<Map.Entry<String, JsonElement>> entrySet = rootObject.entrySet();
+
+				// Iterate through them
+				for (Map.Entry<String, JsonElement> entry : entrySet) {
+
+					String key = entry.getKey();
+					JsonElement value = entry.getValue();
+					DataType dataType = null;
+					
+					if (value.isJsonObject()) {		
+						dataType = new DataType(key, key, true);
+						
+						processChildrenObjects(key, value);
+						
+					}else if (value.isJsonArray()) {
+						dataType = getArrayDataType(entry);
+						
+						processArray(entry);
+						
+					}else if (value.isJsonPrimitive()) {
+						dataType = getPrimitiveDataType(entry);
+					}
+					
+					// Add the new property.
+					properties.put(key, dataType);
+				}	
+			}	
+			
+			// Process the file properties
+			prepareFiles();
+			
+		} catch (JsonSyntaxException e) {
+			System.err.println(e.getMessage());
+		} catch (JsonParseException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 	
 	
 	/**
-	 * Method to recursively process all the elements in a n array.
-	 * @param entry The entry element that is an JsonArray object.
+	 * Saves a file to the specified directory.
 	 */
-	protected abstract void processArray(Map.Entry<String, JsonElement> entry);
+	public void save() {
+		
+		for (ClassFile file : files) {
+			
+			byte[] bytes = file.getContents().getBytes();
+			
+			try {		
+				Files.write(Paths.get(file.getFullPath()), bytes);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+	}
 	
-	/**
-	 * Method to process all children on an object recursively.
-	 * @param key
-	 * @param value
-	 */
-	protected abstract void processChildrenObjects(String key, JsonElement value);
+
 	
 	/**
 	 * Method to process the arrays. Arrays have a lot of different ways to be
@@ -89,17 +151,7 @@ public abstract class ModelAbstract {
 	 */
 	protected abstract DataType getPrimitiveDataType(Map.Entry<String, JsonElement> entry);
 	
-	
-	/**
-	 * Function to check if the value is a double or an integer.
-	 * We rely on the fact that the numbers will flow as Strings and
-	 * we try to find a decimal separator for the Locale.US
-	 * @param number The number to be checked
-	 * @return true if double, false otherwise
-	 */
-	protected abstract boolean isDouble(String number);
-	
-	
+
 	/**
 	 * Prepares the file for each individual class. It will get the information from
 	 * the Model, create a ClassFile object and add it to the files collection
@@ -144,23 +196,6 @@ public abstract class ModelAbstract {
 	
 	
 	/**
-	 * Saves a file to the specified directory.
-	 */
-	public void save() {
-		
-		for (ClassFile file : files) {
-			
-			byte[] bytes = file.getContents().getBytes();
-			
-			try {		
-				Files.write(Paths.get(file.getFullPath()), bytes);
-			} catch (IOException e) {
-				System.err.println(e.getMessage());
-			}
-		}
-	}
-	
-	/**
 	 * Converts the properties list in a list  of DataType name separated by commas
 	 * "Color color, String text"
 	 * @return a list of DataTypes and names separated by commas.
@@ -179,6 +214,58 @@ public abstract class ModelAbstract {
 		// Remove the last ', ' characters added.
 		return sb.substring(0, sb.length() - 2);
 	}
+	
+	
+	/**
+	 * Method to recursively process all the elements in a n array.
+	 * @param entry The entry element that is an JsonArray object.
+	 */
+	protected void processArray(Map.Entry<String, JsonElement> entry) {
+		
+		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
+		
+		//Recursively process the inner elements
+		JsonArray array = entry.getValue().getAsJsonArray();
+		for (JsonElement jsonElement : array) {
+			processChildrenObjects(nameClass, jsonElement);
+		}
+	}	
+	
+	/**
+	 * Method to process all children on an object recursively.
+	 * @param key
+	 * @param value
+	 */
+	protected void processChildrenObjects(String key, JsonElement value) {
+		
+		ModelAbstract m = ModelFactory.build(key, value.toString(), language, destFolder);
+		m.topObject = false;
+		m.parse();
+		m.save();
+	}
+	
+	/**
+	 * Function to check if the value is a double or an integer.
+	 * We rely on the fact that the numbers will flow as Strings and
+	 * we try to find a decimal separator for the Locale.US
+	 * @param number The number to be checked
+	 * @return true if double, false otherwise
+	 */
+	protected boolean isDouble(String number) {
+		
+		if (NumberUtils.isNumber(number)) {
+			
+			DecimalFormatSymbols dsf = new DecimalFormatSymbols(Locale.US);
+			char charSeparator = dsf.getDecimalSeparator();
+			String separator = String.valueOf(charSeparator);
+			
+			if (number.contains(separator)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 
 	/**
