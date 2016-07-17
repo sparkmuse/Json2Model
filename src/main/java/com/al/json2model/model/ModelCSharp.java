@@ -4,6 +4,7 @@ package com.al.json2model.model;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -113,8 +114,8 @@ public class ModelCSharp extends ModelAbstract {
 		}	
 	}
 	
-	
-	private DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
+	@Override
+	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
 		
 		JsonArray array = entry.getValue().getAsJsonArray();
 		
@@ -247,4 +248,17 @@ public class ModelCSharp extends ModelAbstract {
 		return sb.toString();
 		
 	}
+
+	@Override
+	protected void processArray(Entry<String, JsonElement> entry) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void processChildrenObjects(String key, JsonElement value) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

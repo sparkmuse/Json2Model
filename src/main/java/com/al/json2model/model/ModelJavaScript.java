@@ -70,4 +70,22 @@ public class ModelJavaScript extends ModelAbstract {
 	protected String getLoadMethod() {
 		return null;
 	}
+
+	@Override
+	protected void processArray(Entry<String, JsonElement> entry) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void processChildrenObjects(String key, JsonElement value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected DataType getArrayDataType(Entry<String, JsonElement> entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

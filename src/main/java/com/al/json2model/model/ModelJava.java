@@ -29,11 +29,22 @@ import com.google.gson.JsonSyntaxException;
  */
 public class ModelJava extends ModelAbstract {
 	
-	
+	/**
+	 * Default constructor.
+	 * @param name Name of the class to be created.
+	 * @param json JSON file to use as a blueprint.
+	 * @param language The language used for the class to be created.
+	 * @param destFolder Destination folder where to put the file(s).
+	 */
 	public ModelJava(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
 	
+	
+	/**
+	 * Main parse method for the Java classes.
+	 * 
+	 */
 	@Override
 	public void parse() {
 
@@ -58,37 +69,52 @@ public class ModelJava extends ModelAbstract {
 					if (value.isJsonObject()) {		
 						dataType = new DataType(key, key, true);
 						
-						//Recursive way to get all the elements
-						ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
-						m.topObject = false;
-						m.parse();
-						m.save();
+						processChildrenObjects(key, value);
 						
 					}else if (value.isJsonArray()) {
-						
 						dataType = getArrayDataType(entry);
 						
-						System.out.println("We found an array");
+						processArray(entry);
 						
 					}else if (value.isJsonPrimitive()) {
 						dataType = getPrimitiveDataType(entry);
 					}
-
-					properties.put(key, dataType);
 					
+					// Add the new property.
+					properties.put(key, dataType);
 				}	
 			}	
 			
 			// Process the file properties
 			prepareFiles();
 			
-			
 		} catch (JsonSyntaxException e) {
-			
 			System.err.println(e.getMessage());
 		} catch (JsonParseException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+
+
+	@Override
+	protected void processArray(Map.Entry<String, JsonElement> entry) {
+		
+		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
+		
+		//Recursively process the inner elements
+		JsonArray array = entry.getValue().getAsJsonArray();
+		for (JsonElement jsonElement : array) {
+			processChildrenObjects(nameClass, jsonElement);
+		}
+	}
+
+
+	@Override
+	protected void processChildrenObjects(String key, JsonElement value) {
+		ModelJava m = new ModelJava(key, value.toString(), language, destFolder);
+		m.topObject = false;
+		m.parse();
+		m.save();
 	}
 	
 	
@@ -113,27 +139,14 @@ public class ModelJava extends ModelAbstract {
 		}
 	}
 	
-	
-	private DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
-		
-		JsonArray array = entry.getValue().getAsJsonArray();
-		
+	@Override
+	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
+
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
 		String type = "ArrayList<" + nameClass + ">";
 		
-		for (JsonElement jsonElement : array) {
-			
-			//Recursive way to get all the elements
-			ModelJava m = new ModelJava(nameClass, jsonElement.toString(), language, destFolder);
-			m.topObject = false;
-			m.parse();
-			m.save();
-		}
-		
-		//Gets the ArrayList Type itself.
-		DataType dt = new DataType(name, type, false);
-		return dt;
+		return new DataType(name, type, false);
 	}
 	
 	@Override
@@ -163,7 +176,7 @@ public class ModelJava extends ModelAbstract {
 		file.setExtension(".java");
 		file.setContents(getBody());
 		
-		//Add the property
+		//Add the file to the properties.
 		files.add(file);
 	}
 	

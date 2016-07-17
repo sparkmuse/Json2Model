@@ -57,6 +57,31 @@ public abstract class ModelAbstract {
 	 */
 	public abstract void parse();
 	
+	
+	/**
+	 * Method to recursively process all the elements in a n array.
+	 * @param entry The entry element that is an JsonArray object.
+	 */
+	protected abstract void processArray(Map.Entry<String, JsonElement> entry);
+	
+	/**
+	 * Method to process all children on an object recursively.
+	 * @param key
+	 * @param value
+	 */
+	protected abstract void processChildrenObjects(String key, JsonElement value);
+	
+	/**
+	 * Method to process the arrays. Arrays have a lot of different ways to be
+	 * represented in modern languages. 
+	 * By rule we use the higher level representation structures of arrays (Lists, ArraysLists...)
+	 * rather the lower level ones (Unless we have no other option like in C)
+	 * 
+	 * @param entry The entry to be analyzed.
+	 * @return a data type for the array.
+	 */
+	protected abstract DataType getArrayDataType(Map.Entry<String, JsonElement> entry);
+	
 	/**
 	 * Method to process the data if they are primitive.
 	 * @param entry The map entry for the object (aka the primitive)
