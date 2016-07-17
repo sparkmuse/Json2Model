@@ -7,6 +7,12 @@ import com.al.json2model.general.JsonReader;
 import com.al.json2model.model.properties.Language;
 import com.al.json2model.model.properties.PropertyReader;
 
+/**
+ * This class will create an dispense instances of the models need per language.
+ * 
+ * @author alfredo
+ *
+ */
 public class ModelFactory {
 
 	public static ModelAbstract build(Arguments arguments, JsonReader reader, PropertyReader properties) {
@@ -34,6 +40,10 @@ public class ModelFactory {
 		} else if (lang.equalsIgnoreCase("java_script")) {
 			
 			model = new ModelJavaScript(name, json, language, outputFolder);
+			
+		} else if (lang.equalsIgnoreCase("swift")) {
+			
+			model = new ModelSwift(name, json, language, outputFolder);
 		}
 
 		return model;
