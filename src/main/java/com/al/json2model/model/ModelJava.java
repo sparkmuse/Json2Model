@@ -47,6 +47,7 @@ public class ModelJava extends ModelAbstract {
 			}else {
 				return new DataType(entry.getKey(), "int", false);
 			}	
+			
 		} else if (primivitive.isString()) {
 			return new DataType(entry.getKey(), "String", false);
 		} else {
@@ -56,10 +57,12 @@ public class ModelJava extends ModelAbstract {
 	
 	@Override
 	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
+		
+		final String format = "ArrayList<%s>";
 
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
-		String type = "ArrayList<" + nameClass + ">";
+		String type = String.format(format, nameClass);
 		
 		return new DataType(name, type, false);
 	}
@@ -67,12 +70,14 @@ public class ModelJava extends ModelAbstract {
 
 	@Override
 	protected void prepareFiles() {
+		
+		final String fileExtension = ".java";
 
 		//Java has only one class file to be created.
 		ClassFile file = new ClassFile();
-		file.setName(StringUtils.capitalize(modelName));
+		file.setName(modelName);
 		file.setFolder(destFolder);
-		file.setExtension(".java");
+		file.setExtension(fileExtension);
 		file.setContents(getBody());
 		
 		//Add the file to the properties.
