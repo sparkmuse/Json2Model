@@ -9,7 +9,6 @@ import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
 import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
@@ -22,7 +21,14 @@ import com.google.gson.JsonPrimitive;
  */
 public class ModelSwift extends ModelAbstract {
 	
-	
+	/**
+	 * Default constructor.
+	 * @param name Name of the class to be created.
+	 * @param json JSON file to use as a blueprint.
+	 * @param language The language used for the class to be created.
+	 * @param destFolder Destination folder where to put the file(s).
+	 * @see ModelAbstract
+	 */
 	public ModelSwift(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
@@ -52,39 +58,24 @@ public class ModelSwift extends ModelAbstract {
 	@Override
 	protected DataType getArrayDataType(Map.Entry<String, JsonElement> entry) {
 		
-		JsonArray array = entry.getValue().getAsJsonArray();
-		
+		final String format = "[%s]";
+
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
-		String type = "[" + nameClass + "]";
+		String type = String.format(format, nameClass);
 		
-		for (JsonElement jsonElement : array) {
-			
-			//Recursive way to get all the elements
-			ModelSwift m = new ModelSwift(nameClass, jsonElement.toString(), language, destFolder);
-			m.topObject = false;
-			m.parse();
-			m.save();
-		}
-		
-		//Gets the ArrayList Type itself.
-		DataType dt = new DataType(name, type, false);
-		return dt;
+		return new DataType(name, type, false);
 	}
 	
 
 	@Override
 	protected void prepareFiles() {
-
-		//Java has only one class file to be created.
-		ClassFile file = new ClassFile();
-		file.setName(StringUtils.capitalize(modelName));
-		file.setFolder(destFolder);
-		file.setExtension(".swift");
-		file.setContents(getBody());
 		
-		//Add the property
+		String extension = ".swift";
+			
+		ClassFile file = new ClassFile(modelName, extension, destFolder, getBody());
 		files.add(file);
+		
 	}
 	
 
@@ -99,7 +90,7 @@ public class ModelSwift extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
+		sb.append(String.format(language.CLASS_DECLARATION_START, modelName));
 		sb.append(properties);
 		sb.append(constructor);
 		sb.append(getLoadMethod());
@@ -117,9 +108,10 @@ public class ModelSwift extends ModelAbstract {
 		for (String propertyKey : properties.keySet()) {
 			
 			DataType t = properties.get(propertyKey);
-			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
-			String format = language.PROPERTY_DECLARATION;
+			String type = t.isObject() ? NameUtils.getCapitalized(t.getName()) : t.getType();
 			
+			// If the object is an array then use var.
+			String format = language.PROPERTY_DECLARATION;
 			if (type.contains("[")) {
 				format = language.PROPERTY_DECLARATION.replace("let", "var");
 			}
