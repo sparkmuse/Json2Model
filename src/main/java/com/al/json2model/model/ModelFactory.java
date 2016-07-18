@@ -31,6 +31,11 @@ public class ModelFactory {
 		} else if (lang.equalsIgnoreCase("swift")) {
 			
 			model = new ModelSwift(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("objective_c")) {
+			
+			model = new ModelObjectiveC(name, json, language, destFolder);
+			
 		}
 
 		return model;

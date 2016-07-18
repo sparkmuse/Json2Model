@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -85,7 +86,7 @@ public abstract class ModelAbstract {
 					DataType dataType = null;
 					
 					if (value.isJsonObject()) {		
-						dataType = new DataType(key, key, true);
+						dataType = new DataType(key, WordUtils.capitalize(key), true);
 						
 						processChildrenObjects(key, value);
 						
@@ -233,11 +234,12 @@ public abstract class ModelAbstract {
 	
 	/**
 	 * Method to process all children on an object recursively.
-	 * @param key
-	 * @param value
+	 * @param key The name of the child Object
+	 * @param value The JSON element.
 	 */
 	protected void processChildrenObjects(String key, JsonElement value) {
 		
+		key = WordUtils.capitalize(key);
 		ModelAbstract m = ModelFactory.build(key, value.toString(), language, destFolder);
 		m.topObject = false;
 		m.parse();

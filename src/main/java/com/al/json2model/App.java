@@ -1,6 +1,7 @@
 package com.al.json2model;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
@@ -37,6 +38,7 @@ public class App {
 			
 			// Get the parameters for the model.
 			String name = FilenameUtils.getBaseName(arguments.getInputFile());
+			name = WordUtils.capitalize(name);
 			String json = reader.getContent();
 			Language language = pr.getLanguages().get(arguments.getLanguage());
 			String outputFolder = arguments.getOutputFolder();

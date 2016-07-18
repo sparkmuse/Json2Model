@@ -21,6 +21,17 @@ public class Language {
 	public String CLASS_DECLARATION_START;
 	public String CLASS_DECLARATION_END;
 	
+	
+	/**
+	 * Header declarations for languages that use two files for 
+	 * declarations.
+	 */
+	public String IMPORT_FILES;
+	public String INTERFACE_DECLARATION_START;
+	public String INTERFACE_DECLARATION_END;
+	public String IMPLEMENTATION_DECLARATION_START;
+	public String IMPLEMENTATION_DECLARATION_END;
+	
 	/**
 	 * Properties specifiers.
 	 */
@@ -29,6 +40,7 @@ public class Language {
 	/**
 	 * Constructor specifiers.
 	 */
+	public String CONSTRUCTOR_DECLARATION_INTERFACE;
 	public String CONTRUCTOR_DECLARATION_END;
 	public String CONSTRUCTOR_DECLARATION_START;
 	public String CONTRUCTOR_SUPER;
