@@ -122,7 +122,7 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesToString()));
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesAsArgument()));
 		sb.append(language.CONTRUCTOR_SUPER);
 
 		for (String propertyKey : properties.keySet()) {

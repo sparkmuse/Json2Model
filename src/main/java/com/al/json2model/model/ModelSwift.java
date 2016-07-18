@@ -137,7 +137,7 @@ public class ModelSwift extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , getPropertiesToString()));
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , getPropertiesAsArgument()));
 		sb.append(language.CONTRUCTOR_SUPER);
 
 		for (String propertyKey : properties.keySet()) {
@@ -151,7 +151,7 @@ public class ModelSwift extends ModelAbstract {
 	}
 	
 	@Override
-	protected String getPropertiesToString() {
+	protected String getPropertiesAsArgument() {
 		
 		StringBuilder sb = new StringBuilder();
 

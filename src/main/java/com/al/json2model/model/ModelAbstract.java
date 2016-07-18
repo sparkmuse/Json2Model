@@ -201,7 +201,7 @@ public abstract class ModelAbstract {
 	 * "Color color, String text"
 	 * @return a list of DataTypes and names separated by commas.
 	 */
-	protected String getPropertiesToString() {
+	protected String getPropertiesAsArgument() {
 		
 		StringBuilder sb = new StringBuilder();
 

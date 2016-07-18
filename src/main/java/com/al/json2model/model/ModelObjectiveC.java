@@ -151,7 +151,7 @@ public class ModelObjectiveC extends ModelAbstract {
 	
 	private String getConstructorInterface() {
 		
-		return String.format(language.CONSTRUCTOR_DECLARATION_INTERFACE, getPropertiesToString());
+		return String.format(language.CONSTRUCTOR_DECLARATION_INTERFACE, getPropertiesAsArgument());
 	}
 	
 	@Override
@@ -160,7 +160,7 @@ public class ModelObjectiveC extends ModelAbstract {
 		//String 
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START ,getPropertiesToString()));
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START ,getPropertiesAsArgument()));
 		sb.append(language.NEW_LINE);
 		sb.append(language.CONTRUCTOR_SUPER);
 		sb.append(language.NEW_LINE);
@@ -227,7 +227,7 @@ public class ModelObjectiveC extends ModelAbstract {
 	}
 	
 	@Override
-	protected String getPropertiesToString() {
+	protected String getPropertiesAsArgument() {
 		
 		boolean firstArgument = true;
 		
