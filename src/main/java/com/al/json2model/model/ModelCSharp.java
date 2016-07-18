@@ -4,8 +4,6 @@ package com.al.json2model.model;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
 import com.al.json2model.general.NameUtils;
@@ -29,7 +27,6 @@ public class ModelCSharp extends ModelAbstract {
 	 * @param language The language used for the class to be created.
 	 * @param destFolder Destination folder where to put the file(s).
 	 */
-	
 	public ModelCSharp(String name, String json, Language language, String destFolder) {
 		super(name, json, language, destFolder);
 	}
@@ -49,6 +46,7 @@ public class ModelCSharp extends ModelAbstract {
 			}else {
 				return new DataType(entry.getKey(), "int", false);
 			}	
+			
 		} else if (primivitive.isString()) {
 			return new DataType(entry.getKey(), "string", false);
 		} else {
@@ -59,9 +57,11 @@ public class ModelCSharp extends ModelAbstract {
 	@Override
 	protected DataType getArrayDataType(Entry<String, JsonElement> entry) {
 		
+		String format = "List<%s>";
+		
 		String name = entry.getKey();
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
-		String type = "List<" + nameClass + ">";
+		String type = String.format(format, nameClass);
 		
 		return new DataType(name, type, false);
 	}
@@ -69,15 +69,11 @@ public class ModelCSharp extends ModelAbstract {
 	
 	@Override
 	protected void prepareFiles() {
-
-		//Java has only one class file to be created.
-		ClassFile file = new ClassFile();
-		file.setName(StringUtils.capitalize(modelName));
-		file.setFolder(destFolder);
-		file.setExtension(".cs");
-		file.setContents(getBody());
 		
-		//Add the property
+		String extension = ".cs";
+
+		//Java has only one class file to be created
+		ClassFile file = new ClassFile(modelName, extension, destFolder, getBody());
 		files.add(file);
 	}
 	
@@ -93,7 +89,7 @@ public class ModelCSharp extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
+		sb.append(String.format(language.CLASS_DECLARATION_START, modelName));
 		sb.append(properties);
 		sb.append(constructor);
 		sb.append(getLoadMethod());
@@ -111,7 +107,7 @@ public class ModelCSharp extends ModelAbstract {
 		for (String propertyKey : properties.keySet()) {
 			
 			DataType t = properties.get(propertyKey);
-			String type = t.isObject() ? StringUtils.capitalize(t.getName()) : t.getType();
+			String type = t.isObject() ? NameUtils.getCapitalized(t.getName()) : t.getType();
 			sb.append(String.format(language.PROPERTY_DECLARATION, type, t.getName()));
 		}
 		
@@ -125,7 +121,7 @@ public class ModelCSharp extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesAsArgument()));
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , modelName, getPropertiesAsArgument()));
 		sb.append(language.CONTRUCTOR_SUPER);
 
 		for (String propertyKey : properties.keySet()) {
