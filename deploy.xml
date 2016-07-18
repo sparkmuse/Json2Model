@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Json2Model">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="/Users/alfredo/Documents/workspace"/>
+    <property name="dir.jarfile" value="${dir.buildfile}/bin"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/j2m.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="com.al.json2model.App"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.buildfile}/target/classes"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/alfredo/.m2/repository/com/google/code/gson/gson/2.7/gson-2.7.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/alfredo/.m2/repository/org/apache/commons/commons-lang3/3.0/commons-lang3-3.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/alfredo/.m2/repository/commons-cli/commons-cli/1.3.1/commons-cli-1.3.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/alfredo/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+        </jar>
+    </target>
+</project>
