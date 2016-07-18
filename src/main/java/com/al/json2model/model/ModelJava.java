@@ -4,6 +4,7 @@ package com.al.json2model.model;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -74,14 +75,9 @@ public class ModelJava extends ModelAbstract {
 		final String fileExtension = ".java";
 
 		//Java has only one class file to be created.
-		ClassFile file = new ClassFile();
-		file.setName(modelName);
-		file.setFolder(destFolder);
-		file.setExtension(fileExtension);
-		file.setContents(getBody());
-		
-		//Add the file to the properties.
+		ClassFile file = new ClassFile(modelName, fileExtension, destFolder, getBody());
 		files.add(file);
+		
 	}
 	
 
@@ -95,7 +91,7 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CLASS_DECLARATION_START, StringUtils.capitalize(modelName)));
+		sb.append(String.format(language.CLASS_DECLARATION_START, modelName));
 		sb.append(properties);
 		sb.append(constructor);
 		sb.append(getLoadMethod());
@@ -127,7 +123,7 @@ public class ModelJava extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , StringUtils.capitalize(modelName), getPropertiesAsArgument()));
+		sb.append(String.format(language.CONSTRUCTOR_DECLARATION_START , modelName, getPropertiesAsArgument()));
 		sb.append(language.CONTRUCTOR_SUPER);
 
 		for (String propertyKey : properties.keySet()) {
@@ -152,7 +148,7 @@ public class ModelJava extends ModelAbstract {
 			String getterSuffix = t.getType().equals("boolean") ? language.GETTER_NAME_SUFFIX_BOOLEAN : language.GETTER_NAME_SUFFIX;
 			
 			String getterName = getterSuffix + StringUtils.capitalize(t.getName());
-			String setterName = language.SETTER_NAME_SUFFIX + StringUtils.capitalize(t.getName());
+			String setterName = language.SETTER_NAME_SUFFIX + WordUtils.capitalize(t.getName());
 		
 			// Add all the elements together.
 			sb.append(String.format(language.GETTER_DECLARATION_START,t.getType(), getterName));

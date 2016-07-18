@@ -14,6 +14,16 @@ public class ClassFile {
 		super();
 	}
 	
+	
+	public ClassFile(String name, String extension, String folder, String contents) {
+		super();
+		this.name = name;
+		this.extension = extension;
+		this.folder = folder;
+		this.contents = contents;
+	}
+
+
 	/**
 	 * @return the fullPath
 	 */
