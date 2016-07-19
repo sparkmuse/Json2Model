@@ -15,6 +15,9 @@ public class JsonReader {
 	private String content = "";
 	private String filePath = null;
 	
+	public JsonReader() {
+	}
+	
 	public JsonReader(String path) {
 		filePath = path;
 	}
