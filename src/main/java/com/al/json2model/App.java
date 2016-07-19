@@ -6,6 +6,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import com.al.json2model.cmdl.ArgumentParser;
 import com.al.json2model.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
+import com.al.json2model.general.PathUtils;
 import com.al.json2model.model.ModelAbstract;
 import com.al.json2model.model.ModelFactory;
 import com.al.json2model.model.properties.Language;
@@ -18,11 +19,13 @@ import com.al.json2model.model.properties.PropertyReader;
 public class App {
 	
 	public static final String APP_NAME = "Json2Model";
-	public static final String PROPERTIES_FILE = "resources/properties.json";
 	
 	public static void main(String[] args) {
-
-		PropertyReader pr = new PropertyReader(PROPERTIES_FILE);
+		
+		String fullPropertyPath = PathUtils.getPropertiesFile();
+		System.out.println(fullPropertyPath);
+		
+		PropertyReader pr = new PropertyReader(fullPropertyPath);
 		pr.read();
 		pr.parse();
 

@@ -1,8 +1,8 @@
 package com.al.json2model.general;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -24,22 +24,16 @@ public class JsonReader {
 	 */
 	public void read() {
 		
+		File file = new File(filePath);
 		String charset = "UTF-8";
 		byte[] bytes;
 		
-		//TODO: Needs 
-		Path  path = Paths.get(filePath);
-		if (path == null) {
-			filePath = "../" + filePath;
-			path = Paths.get(filePath);
-		}
 		
 		try {
-			bytes = Files.readAllBytes(path);
+			bytes = Files.readAllBytes(Paths.get(file.getPath()));
 			content = new String(bytes, charset);
-			
 		} catch (IOException e) {
-		   	System.out.println(e.getMessage());
+		   	e.printStackTrace();
 		}
 	}
 	
