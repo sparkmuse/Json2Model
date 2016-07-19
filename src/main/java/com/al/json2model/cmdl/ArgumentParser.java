@@ -113,10 +113,6 @@ public class ArgumentParser extends DefaultParser{
 					File f = new File(arguments.getInputFile());
 					arguments.setOutputFolder(f.getParentFile().getPath());
 				}
-				
-				// Print the values to the console.
-				System.out.println(arguments.toString());
-				
 			}
 		}catch (ParseException e) {
 			System.err.println(e.getMessage());;

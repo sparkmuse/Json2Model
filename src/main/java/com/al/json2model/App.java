@@ -23,7 +23,6 @@ public class App {
 	public static void main(String[] args) {
 		
 		String fullPropertyPath = PathUtils.getPropertiesFile();
-		System.out.println(fullPropertyPath);
 		
 		PropertyReader pr = new PropertyReader(fullPropertyPath);
 		pr.read();
