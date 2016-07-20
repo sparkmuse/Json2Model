@@ -30,8 +30,8 @@ A very small tool for people to get things done fast! :)
  -h,--help                 Help
  -lang,--language <LANG>   The language for the file output.
                            Allowed languages:
-                           [C, OBJECTIVE_C, JAVA, SWIFT, VISUAL_BASIC,
-                           VBA, UNKNOWN]
+                           [C_SHARP, JAVA, JAVA_SCRIPT, OBJECTIVE_C,
+                           SWIFT]
  -o,--out <DIR>            The directory where to place the processed
                            files. If ommited the same DIR as 'file' is
                            used
@@ -40,9 +40,9 @@ Enjoy
 
 
 ##User Guides
-I want to get a Model 'Box' file from Box.json file to follow MVC patters.
+I want to get a Model 'Input' file from input.json file to follow MVC patters.
 
-Box.json contains:
+input.json contains:
 ````json
 {
 	"customer":{
