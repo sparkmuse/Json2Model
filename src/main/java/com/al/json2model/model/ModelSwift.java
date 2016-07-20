@@ -1,6 +1,7 @@
 package com.al.json2model.model;
 
 
+import java.util.AbstractMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -60,10 +61,25 @@ public class ModelSwift extends ModelAbstract {
 		
 		final String format = "[%s]";
 
+		String type = null;
 		String name = entry.getKey();
-		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
-		String type = String.format(format, nameClass);
-		
+		String nameClass = null;
+		JsonElement testType = entry.getValue().getAsJsonArray().get(0);
+
+		if (testType.isJsonObject() || testType.isJsonArray()) {
+
+			nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
+			type = String.format(format, nameClass);
+
+		} else {
+
+			Map.Entry<String, JsonElement> pair = new AbstractMap.SimpleEntry<String, JsonElement>(name, testType);
+
+			DataType base = getPrimitiveDataType(pair);
+			nameClass = base.getType();
+			type = String.format(format, nameClass);
+		}
+
 		return new DataType(name, type, false);
 	}
 	
