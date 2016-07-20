@@ -59,11 +59,8 @@ public class DataType {
 	 */
 	@Override
 	public String toString() {
-		return type;
+		return "Type: " + type + " Name: " + name;
 	}
 
-	public void load() {
-
-	}
 
 }
