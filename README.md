@@ -45,11 +45,19 @@ I want to get a Model 'Box' file from Box.json file to follow MVC patters.
 Box.json contains:
 ````json
 {
-  "text": "input",
-  "left": 20,
-  "top": 20,
-  "width": 200,
-  "height": 25
+	"customer":{
+		"firstName": "John",
+		"lastName": "Doe"
+	},
+	"addresses": [
+		{
+			"street": "Faraway Creek",
+			"number": 1234,
+			"city":	"Never-land"
+		}
+	],
+	"balance": 23234.23,
+	"active": true
 }
 ````
 
@@ -58,50 +66,109 @@ Box.json contains:
 ./j2m.sh -f "myDirectory/Box.json" -lang=java -o "/myDirectory/target/"
 ````
 
-- A new file Box.class was created in the specified directory 
-Box.class contains:
+- New files was created in the specified directory:
 
 ````java
-public class ClassF {
+public class Input {
 
-	private double top;
-	private double left;
-	private double width;
-	private String text;
-	private double height;
+	private ArrayList<Address> addresses;
+	private double balance;
+	private boolean active;
+	private Customer customer;
+
+	public Input(ArrayList<Address> addresses, double balance, boolean active, Customer customer) {
+		super();
+		this.addresses = addresses;
+		this.balance = balance;
+		this.active = active;
+		this.customer = customer;
+	}
 
 	public void load() {
 		//TODO: Needs to be implemented.
 	}
-	public getTop double() {
-		return top;
+
+	public ArrayList<Address> getAddresses() {
+		return addresses;
 	}
-	public void setTop(double top) {
-		this.top = top;
+	public void setAddresses(ArrayList<Address> addresses) {
+		this.addresses = addresses;
 	}
-	public getLeft double() {
-		return left;
+	public double getBalance() {
+		return balance;
 	}
-	public void setLeft(double left) {
-		this.left = left;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
-	public getWidth double() {
-		return width;
+	public boolean isActive() {
+		return active;
 	}
-	public void setWidth(double width) {
-		this.width = width;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
-	public getText String() {
-		return text;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-	public getHeight double() {
-		return height;
+}
+
+public class Customer {
+
+	private String firstName;
+	private String lastName;
+
+	public Customer(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
-	public void setHeight(double height) {
-		this.height = height;
+
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+}
+
+public class Address {
+
+	private int number;
+	private String city;
+	private String street;
+
+	public Address(int number, String city, String street) {
+		super();
+		this.number = number;
+		this.city = city;
+		this.street = street;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
 	}
 }
 ````
