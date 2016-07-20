@@ -104,8 +104,11 @@ public abstract class ModelAbstract {
 				}	
 			}	
 			
-			// Process the file properties
-			prepareFiles();
+			// Process the file properties only if there are properties to process.
+			if (properties.size() > 0) {
+				prepareFiles();
+			}
+			
 			
 		} catch (JsonSyntaxException e) {
 			System.err.println(e.getMessage());
@@ -141,7 +144,7 @@ public abstract class ModelAbstract {
 	 * rather the lower level ones (Unless we have no other option like in C)
 	 * 
 	 * @param entry The entry to be analyzed.
-	 * @return a data type for the array.
+	 * @return a data type for the array. TODO:Expand for other data types check before moving
 	 */
 	protected abstract DataType getArrayDataType(Map.Entry<String, JsonElement> entry);
 	
@@ -213,7 +216,13 @@ public abstract class ModelAbstract {
 		}
 		
 		// Remove the last ', ' characters added.
-		return sb.substring(0, sb.length() - 2);
+		if (sb.length() > 2) {
+			return sb.substring(0, sb.length() - 2);
+		} else {
+			return "";
+		}
+			
+		
 	}
 	
 	
@@ -223,12 +232,17 @@ public abstract class ModelAbstract {
 	 */
 	protected void processArray(Map.Entry<String, JsonElement> entry) {
 		
+	
 		String nameClass = NameUtils.getCapitalized(NameUtils.getSingular(entry.getKey()));
 		
 		//Recursively process the inner elements
 		JsonArray array = entry.getValue().getAsJsonArray();
 		for (JsonElement jsonElement : array) {
-			processChildrenObjects(nameClass, jsonElement);
+			
+			if (jsonElement.isJsonObject()) {
+				processChildrenObjects(nameClass, jsonElement);
+			}
+			
 		}
 	}	
 	

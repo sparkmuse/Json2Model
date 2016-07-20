@@ -130,7 +130,7 @@ public class Pluralizer {
 	 */
 	public static String getSingular(String noun) {
 
-		String result = null;
+		String result = noun;
 		word = noun.toLowerCase();
 		original = noun;
 		setLetterCases();
@@ -153,7 +153,7 @@ public class Pluralizer {
 
 			result = original.substring(0, original.length() - 2);
 
-		} else {
+		} else if (word.endsWith("s")){
 			result = original.substring(0, original.length() - 1);
 		}
 

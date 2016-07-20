@@ -253,6 +253,11 @@ public class ModelObjectiveC extends ModelAbstract {
 		}
 		
 		// Remove the last ' ' characters added.
-		return sb.substring(0, sb.length() - 1);
+		if (sb.length() > 1) {
+			return sb.substring(0, sb.length() - 1);
+		}else {
+			return "";
+		}
+		
 	}
 }
