@@ -33,6 +33,7 @@ public class App {
 		
 		Arguments arguments = argParser.getArguments();
 		
+		System.out.println(arguments.toString());
 		if (arguments.isValid()) {
 			
 			JsonReader reader = new JsonReader(arguments.getInputFile());

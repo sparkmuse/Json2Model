@@ -43,14 +43,15 @@ public class Arguments {
 	 */
 	private boolean isValidOutputDirectory() {
 		
+		
 		File f = new File(outputFolder);
+		boolean result = f.exists();
 		
 		if (!f.exists()) {
-			return f.mkdirs();
+			result = f.mkdirs();
 		}
 		
-		return true;
-		
+		return result;
 	}
 	
 	/**
