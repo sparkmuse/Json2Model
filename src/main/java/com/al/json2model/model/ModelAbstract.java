@@ -86,7 +86,7 @@ public abstract class ModelAbstract {
 					DataType dataType = null;
 					
 					if (value.isJsonObject()) {		
-						dataType = new DataType(key, WordUtils.capitalize(key), true);
+						dataType = getObjectDataType(entry);
 						
 						processChildrenObjects(key, value);
 						
@@ -116,7 +116,7 @@ public abstract class ModelAbstract {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	
 	/**
 	 * Saves a file to the specified directory.
@@ -221,6 +221,19 @@ public abstract class ModelAbstract {
 		} else {
 			return "";
 		}
+	}
+	
+	
+	/**
+	 * Gets the data type for the objects. In most of the case the objects are going
+	 * to have the DataType as the capital of the key.
+	 * @param entry The entry to analyze
+	 * @return
+	 */
+	protected DataType getObjectDataType(Map.Entry<String, JsonElement> entry) {
+		
+		String key = entry.getKey();
+		return new DataType(key, NameUtils.getCapitalized(key), true);
 	}
 	
 	

@@ -206,6 +206,35 @@
 			"METHOD_LOAD_START": "\tdef load(self):\n",
 			"METHOD_LOAD_BODY": "\t\t#TODO: Needs to be implemented.\n",
 			"METHOD_LOAD_END": "\n"
+		},
+		"PHP": {
+			"LANGUAGE_NAME": "PHP",
+			"NEW_LINE": "\n",
+			"CLASS_DECLARATION_START": "<?php\n\tclass %s {\n",
+			"CLASS_DECLARATION_END": "\t}\n?>\n",
+			"IMPORT_FILES": "",
+			"INTERFACE_DECLARATION_START": "",
+			"INTERFACE_DECLARATION_END": "",
+			"IMPLEMENTATION_DECLARATION_START": "",
+			"IMPLEMENTATION_DECLARATION_END": "",
+			"PROPERTY_DECLARATION": "\t\t%s %s;\n",
+			"ASSIGNMENT": "",
+			"CONSTRUCTOR_DECLARATION_START": "\t\tfunction __construct(%s)\n",
+			"CONTRUCTOR_SUPER": "",
+			"CONTRUCTOR_PROPERTY_ASSIGNMENT": "\t\t\t$this->%s = %s;\n",
+			"CONTRUCTOR_DECLARATION_END": "\t\t}\n",
+			"GETTER_DECLARATION_START": "",
+			"GETTER_DECLARATION_END": "",
+			"GETTER_NAME_SUFFIX": "",
+			"GETTER_NAME_SUFFIX_BOOLEAN": "",
+			"GETTER_BODY": "",
+			"SETTER_DECLARATION_START": "",
+			"SETTER_DECLARATION_END": "",
+			"SETTER_NAME_SUFFIX": "",
+			"SETTER_BODY": "",
+			"METHOD_LOAD_START": "\t\tfunction getPrice\n",
+			"METHOD_LOAD_BODY": "\t\t\t//TODO: Needs to be implemented.\n",
+			"METHOD_LOAD_END": "\t\t}\n"
 		}
 	}
 }

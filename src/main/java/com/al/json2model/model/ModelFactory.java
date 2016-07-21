@@ -47,6 +47,10 @@ public class ModelFactory {
 		} else if (lang.equalsIgnoreCase("python")) {
 			
 			model = new ModelPython(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("php")) {
+			
+			model = new ModelPhp(name, json, language, destFolder);
 		}
 
 		return model;
