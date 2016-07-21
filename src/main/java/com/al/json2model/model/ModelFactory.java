@@ -55,6 +55,10 @@ public class ModelFactory {
 		} else if (lang.equalsIgnoreCase("vba")) {
 			
 			model = new ModelVBA(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("ruby")) {
+			
+			model = new ModelRuby(name, json, language, destFolder);
 		}
 
 		return model;
