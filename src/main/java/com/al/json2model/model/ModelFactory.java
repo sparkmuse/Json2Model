@@ -51,6 +51,10 @@ public class ModelFactory {
 		} else if (lang.equalsIgnoreCase("php")) {
 			
 			model = new ModelPhp(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("vba")) {
+			
+			model = new ModelVBA(name, json, language, destFolder);
 		}
 
 		return model;
