@@ -36,6 +36,9 @@ public class ModelFactory {
 			
 			model = new ModelObjectiveC(name, json, language, destFolder);
 			
+		} else if (lang.equalsIgnoreCase("visual_basic")) {
+			
+			model = new ModelVisualBasic(name, json, language, destFolder);
 		}
 
 		return model;
