@@ -18,6 +18,8 @@ import com.google.gson.JsonElement;
  */
 public class ModelPython extends ModelAbstract {
 	
+	public static final String INTERPRETER_DIRECTIVE = "#!/usr/bin/python";
+	
 	/**
 	 * Default constructor.
 	 * @param name Name of the class to be created.
@@ -69,6 +71,10 @@ public class ModelPython extends ModelAbstract {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		
+		sb.append(INTERPRETER_DIRECTIVE);
+		sb.append(language.NEW_LINE);
+		sb.append(language.NEW_LINE);
 		sb.append(String.format(language.CLASS_DECLARATION_START, modelName));
 		sb.append(properties);
 		sb.append(constructor);

@@ -219,7 +219,7 @@
 			"IMPLEMENTATION_DECLARATION_END": "",
 			"PROPERTY_DECLARATION": "\t\t%s %s;\n",
 			"ASSIGNMENT": "",
-			"CONSTRUCTOR_DECLARATION_START": "\t\tfunction __construct(%s)\n",
+			"CONSTRUCTOR_DECLARATION_START": "\t\tfunction __construct(%s) {\n",
 			"CONTRUCTOR_SUPER": "",
 			"CONTRUCTOR_PROPERTY_ASSIGNMENT": "\t\t\t$this->%s = %s;\n",
 			"CONTRUCTOR_DECLARATION_END": "\t\t}\n",
@@ -232,7 +232,7 @@
 			"SETTER_DECLARATION_END": "",
 			"SETTER_NAME_SUFFIX": "",
 			"SETTER_BODY": "",
-			"METHOD_LOAD_START": "\t\tfunction getPrice\n",
+			"METHOD_LOAD_START": "\t\tfunction getPrice() {\n",
 			"METHOD_LOAD_BODY": "\t\t\t//TODO: Needs to be implemented.\n",
 			"METHOD_LOAD_END": "\t\t}\n"
 		}
