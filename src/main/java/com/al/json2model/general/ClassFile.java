@@ -39,7 +39,7 @@ public class ClassFile {
 		return name;
 	}
 	/**
-	 * @param modelName the modelName to set
+	 * @param name the modelName to set
 	 */
 	public void setName(String name) {
 		this.name = name;
