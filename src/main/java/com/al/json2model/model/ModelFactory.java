@@ -36,6 +36,21 @@ public class ModelFactory {
 			
 			model = new ModelObjectiveC(name, json, language, destFolder);
 			
+		} else if (lang.equalsIgnoreCase("visual_basic")) {
+			
+			model = new ModelVisualBasic(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("type_script")) {
+			
+			model = new ModelTypeScript(name, json, language, destFolder);
+
+		} else if (lang.equalsIgnoreCase("python")) {
+			
+			model = new ModelPython(name, json, language, destFolder);
+			
+		} else if (lang.equalsIgnoreCase("php")) {
+			
+			model = new ModelPhp(name, json, language, destFolder);
 		}
 
 		return model;
