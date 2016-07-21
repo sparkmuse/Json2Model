@@ -221,8 +221,6 @@ public abstract class ModelAbstract {
 		} else {
 			return "";
 		}
-			
-		
 	}
 	
 	
