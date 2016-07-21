@@ -1,4 +1,5 @@
 # Json2Model
+[![GitHub version](https://badge.fury.io/gh/fredlo2010%2FJson2Model.svg)](https://badge.fury.io/gh/fredlo2010%2FJson2Model)
 
 ##About
 
