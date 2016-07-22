@@ -114,7 +114,6 @@ public class ModelObjectiveC extends ModelAbstract {
 
 	
 	private String getBodyImplementation() {
-		//TODO: Fix the imports.
 		String imports = getImplementationInports();
 		
 		// Prepare the body.

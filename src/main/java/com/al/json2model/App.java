@@ -30,10 +30,8 @@ public class App {
 
 		ArgumentParser argParser = new ArgumentParser(pr.getLanguages().keySet());
 		argParser.parse(args);
-		
 		Arguments arguments = argParser.getArguments();
 		
-		System.out.println(arguments.toString());
 		if (arguments.isValid()) {
 			
 			JsonReader reader = new JsonReader(arguments.getInputFile());

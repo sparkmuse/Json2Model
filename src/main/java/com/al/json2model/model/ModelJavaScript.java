@@ -30,51 +30,40 @@ public class ModelJavaScript extends ModelAbstract {
 	
 	@Override
 	protected DataType getArrayDataType(Entry<String, JsonElement> entry) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected DataType getPrimitiveDataType(Entry<String, JsonElement> entry) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected void prepareFiles() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected String getBody() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected String getBodyProperties() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected String getBodyConstructor() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected String getBodyGettersAndSetters() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected String getLoadMethod() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 }

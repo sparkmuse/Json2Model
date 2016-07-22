@@ -144,7 +144,7 @@ public abstract class ModelAbstract {
 	 * rather the lower level ones (Unless we have no other option like in C)
 	 * 
 	 * @param entry The entry to be analyzed.
-	 * @return a data type for the array. TODO:Expand for other data types check before moving
+	 * @return a data type for the array.
 	 */
 	protected abstract DataType getArrayDataType(Map.Entry<String, JsonElement> entry);
 	

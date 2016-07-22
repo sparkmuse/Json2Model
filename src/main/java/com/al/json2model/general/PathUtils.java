@@ -46,7 +46,6 @@ public class PathUtils {
 			result = basePath + File.separator + PROPERTIES_FOLDER + File.separator + PROPERTIES_FILE;
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
