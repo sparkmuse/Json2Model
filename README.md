@@ -1,5 +1,6 @@
 # Json2Model
 [![GitHub version](https://badge.fury.io/gh/fredlo2010%2FJson2Model.svg)](https://badge.fury.io/gh/fredlo2010%2FJson2Model)
+[![Build Status](https://drone.io/github.com/fredlo2010/Json2Model/status.png)](https://drone.io/github.com/fredlo2010/Json2Model/latest)
 
 ##About
 
