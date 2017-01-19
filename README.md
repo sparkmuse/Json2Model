@@ -5,7 +5,7 @@
 
 ##About
 
-Json2Model (aka Broccoli) is a small little tool to help to automate the creation of Models from JSON files.
+Json2Model (aka Broccoli) is a small little tool to help to automate the creation of Models from JSON files so you do not have to suffer :)
 
 ##Goals
 - Ability to create Model classes from the files.
