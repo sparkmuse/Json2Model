@@ -1,7 +1,7 @@
 # Json2Model
 [![GitHub version](https://badge.fury.io/gh/fredlo2010%2FJson2Model.svg)](https://badge.fury.io/gh/fredlo2010%2FJson2Model)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://drone.io/github.com/fredlo2010/Json2Model/latest)
-[![Dependency Status](https://www.versioneye.com/user/projects/579255d2b7463b003c96538d/badge.png)](https://www.versioneye.com/user/projects/579255d2b7463b003c96538d)
+[![Dependency Status](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df/badge.png)](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df)
 
 ##About
 
