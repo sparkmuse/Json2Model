@@ -4,7 +4,7 @@
 
 	<groupId>com.al</groupId>
 	<artifactId>Json2Model</artifactId>
-	<version>1.2.4</version>
+	<version>1.2.7</version>
 
 	<name>Json2Model</name>
 	<url>http://maven.apache.org</url>
