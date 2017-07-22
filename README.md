@@ -3,24 +3,24 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://drone.io/github.com/fredlo2010/Json2Model/latest)
 [![Dependency Status](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df/badge.png)](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df)
 
-##About
+## About
 
 Json2Model (aka Broccoli) is a small little tool to help to automate the creation of Models from JSON files so you do not have to suffer :)
 
-##Goals
+## Goals
 - Ability to create Model classes from the files.
 - Nested classes will be created as well.
 - Multi-language support (programing language anyway).
 - Data type deduction.
 
-##Install
+## Install
 - Download or clone repository.
 - Navigate to folder ````/Json2Model/bin/````
 - Run the ````j2m.sh```` from the command line.
 
 Note: Make sure that the file has permission to run in your computer.
 
-##Documentation 
+## Documentation 
 - Navigate to he cloned/downloaded repository
 - Go to folder ````Json2Model/doc````
 - Open the file ````/overview-summary.html```` to read the documentation
@@ -42,7 +42,7 @@ Enjoy
 ````
 
 
-##User Guides
+## User Guides
 I want to get a Model 'Input' file from input.json file to follow MVC patters.
 
 input.json contains:
@@ -176,7 +176,7 @@ public class Address {
 }
 ````
 
-##Report a Bug or Contribute
+## Report a Bug or Contribute
 
 - Navigate to the bug section tab on GitHub.
 - Create a new Issue. If you are not sure how to create a new issue follow this link for instructions [Creating an issue](https://help.github.com/articles/creating-an-issue/)
@@ -201,7 +201,7 @@ public class Address {
 }
 ````
 
-##License
+## License
 
 We are released under the Apache 2.0 license.
 
