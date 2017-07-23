@@ -12,6 +12,7 @@ tmp/
 local.properties
 .loadpath
 .recommenders
+.settings
 
 # sbteclipse plugin
 .target
