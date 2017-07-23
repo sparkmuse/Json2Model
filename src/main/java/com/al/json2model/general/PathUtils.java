@@ -37,18 +37,9 @@ public class PathUtils {
 	 */
 	public static String getPropertiesFile() {
 		
-		String result = "";
+		ClassLoader classLoader = PathUtils.class.getClassLoader();
+		File file = new File(classLoader.getResource(PROPERTIES_FILE).getFile());
 		
-		try {
-			String originalPath = new File(".").getCanonicalPath();
-			String basePath = originalPath.split(App.APP_NAME)[0] + App.APP_NAME;
-			
-			result = basePath + File.separator + PROPERTIES_FOLDER + File.separator + PROPERTIES_FILE;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
+		return  file.getAbsolutePath();
 	}
 }
