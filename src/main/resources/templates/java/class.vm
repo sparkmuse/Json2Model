@@ -1,0 +1,16 @@
+#parse("templates/general.vm")
+package $package;
+
+#foreach( $import in $imports )
+import $import;
+#end
+
+$header
+public class $className {
+
+#parse("templates/java/instanceVariables.vm")
+
+#parse("templates/java/constructors.vm")
+
+#parse("templates/java/gettersAndSetters.vm")
+}

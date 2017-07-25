@@ -1,0 +1,9 @@
+#foreach( $instanceVariable in $instanceVariables)
+	public $instanceVariable.type get$instanceVariable.name${lPar}) {
+		return $instanceVariable.name;
+	}
+
+	public void set$instanceVariable.name${lPar}$instanceVariable.type $instanceVariable.name) {
+		this.$instanceVariable.name = $instanceVariable.name;
+	}
+#end

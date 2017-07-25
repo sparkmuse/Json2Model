@@ -38,6 +38,9 @@ public class TemplateEngine {
 	/**
 	 * Merges the Contex and the Template.
 	 * 
+	 * We are trimming the returned string to deal a little bit 
+	 * with the WhiteSpaceGobbling problem in velocity.
+	 * 
 	 * @return the merged value.
 	 * 
 	 * @see com.al.j2m.template.TemplateEngine
@@ -45,7 +48,7 @@ public class TemplateEngine {
 	public String merge() {
 		StringWriter writer = new StringWriter();
 		template.merge(context, writer);
-		return writer.toString();
+		return writer.toString().trim();
 	}
 	
 	/**
@@ -72,5 +75,5 @@ public class TemplateEngine {
 		properties.put("class.resource.loader.class", org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader.class.getName());
 		velocityEngine.init(properties);
 		return velocityEngine;
-	}
+	}	
 }

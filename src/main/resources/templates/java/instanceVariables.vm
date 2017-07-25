@@ -1,0 +1,3 @@
+#foreach( $instanceVariable in $instanceVariables)
+	private $instanceVariable.getType() $instanceVariable.name;
+#end

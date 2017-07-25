@@ -1,0 +1,8 @@
+	public $className() {
+	}
+	
+	public $className($constructorVariables) {
+	#foreach( $instanceVariable in $instanceVariables)
+	this.$instanceVariable.name = $instanceVariable.name;
+	#end
+}##This closint backed is indentned incorrectly to deal the velocity bug

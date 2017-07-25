@@ -1,0 +1,2 @@
+#set( $header = "/* Generated with the help of Jason2Model */")				## Small header for the output
+#set( $lPar = "(")															## Left parenthesis needed for parsing (cannot escape)
