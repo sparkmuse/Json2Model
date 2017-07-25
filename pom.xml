@@ -10,7 +10,6 @@
 	<url>https://github.com/fredlo2010/Json2Model</url>
 
 	<properties>
-		<additionalparam>-Xdoclint:none</additionalparam>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -21,6 +20,7 @@
 		<apache.commons-cli.version>1.4</apache.commons-cli.version>
 		<apache.commons-io.version>2.5</apache.commons-io.version>
 		<velocity.version>1.7</velocity.version>
+		<jackson-databind.version>2.8.9</jackson-databind.version>
 	</properties>
 
 	<dependencyManagement>
@@ -55,9 +55,19 @@
 				<artifactId>velocity</artifactId>
 				<version>${velocity.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson-databind.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -161,11 +171,30 @@
 						</goals>
 						<configuration>
 							<failOnError>false</failOnError>
+							<additionalparam>-Xdoclint:none</additionalparam>
 							<outputDirectory>bin/docs</outputDirectory>
+							<detectLinks>true</detectLinks>
+							<additionalDependencies>
+								<additionalDependency>
+									<groupId>org.apache.velocity</groupId>
+									<artifactId>velocity</artifactId>
+									<version>${velocity.version}</version>
+								</additionalDependency>
+							</additionalDependencies>
+							<author>true</author>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
 </project>
