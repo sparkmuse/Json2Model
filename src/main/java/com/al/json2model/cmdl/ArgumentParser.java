@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -26,20 +25,11 @@ import com.al.j2m.util.PropertiesUtil;
 
 public class ArgumentParser extends DefaultParser {
 
-	private static final String OPTION_FILE = "f";
-	private static final String OPTION_LANGUAGE = "lang";
-	private static final String OPTION_OUT = "o";
-	private static final String OPTION_HELP = "h";
-
-	private Arguments arguments;
-	private Options options;
-
 	/**
 	 * Default constructor
 	 */
 	public ArgumentParser() {
 		super();
-		this.arguments = new Arguments();
 		this.options = new Options();
 		setOptions();
 	}
@@ -48,7 +38,7 @@ public class ArgumentParser extends DefaultParser {
 	 * Adds all the options to the argument line.
 	 * 
 	 * We are modifying the options for the Help and the Language to include
-	 * extrafeatures:
+	 * extra features:
 	 * 
 	 * Help needs no arguments Languages needs different description.
 	 */
@@ -102,42 +92,28 @@ public class ArgumentParser extends DefaultParser {
 	 * 
 	 * @param args The command line arguments to be parsed.
 	 */
-	public void parse(String[] args) {
+	public Arguments parse(String[] args) {
 
 		try {
+			super.parse(options, args);
 
-			parse(options, args);
-
-			if (args.length == 0 || cmd.hasOption(OPTION_HELP)) {
-				// Help has the highest priority.
+			if (args.length == 0 || cmd.hasOption(OptionTypes.HELP.getOption())) {
 				displayHelp();
-
-			} else {
-				if (cmd.hasOption(OPTION_FILE)) {
-					String file = cmd.getOptionValue(OPTION_FILE);
-					arguments.setInputFile(file);
-				} else {
-					throw new MissingArgumentException(currentOption);
-				}
-
-				if (cmd.hasOption(OPTION_LANGUAGE)) {
-					String language = cmd.getOptionValue(OPTION_LANGUAGE);
-					arguments.setLanguage(language);
-				} else {
-					throw new MissingArgumentException(currentOption);
-				}
-
-				if (cmd.hasOption(OPTION_OUT)) {
-					String out = cmd.getOptionValue(OPTION_OUT);
-					arguments.setOutputFolder(out);
-				} else {
-					File f = new File(arguments.getInputFile());
-					arguments.setOutputFolder(f.getParentFile().getPath());
-				}
+				return Arguments.HELP;
 			}
+
+			String file = cmd.getOptionValue(OptionTypes.FILE.getOption());
+			String language = cmd.getOptionValue(OptionTypes.LANGUAGE.getOption());
+			String out = cmd.getOptionValue(OptionTypes.OPTION_OUT.getOption(),
+					cmd.getOptionValue(OptionTypes.LANGUAGE.getOption()));
+
+			return new Arguments(file, out, language);
+
 		} catch (ParseException e) {
 			System.err.println(e.getMessage());
 		}
+		
+		return Arguments.NO_ARGUMENTS;
 	}
 
 	/**
@@ -178,12 +154,5 @@ public class ArgumentParser extends DefaultParser {
 		}
 
 		return result;
-	}
-
-	/**
-	 * @return the arguments
-	 */
-	public Arguments getArguments() {
-		return arguments;
 	}
 }
