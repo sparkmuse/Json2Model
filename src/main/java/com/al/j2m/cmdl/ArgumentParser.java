@@ -104,8 +104,8 @@ public class ArgumentParser extends DefaultParser {
 
 			String file = cmd.getOptionValue(OptionTypes.FILE.getOption());
 			String language = cmd.getOptionValue(OptionTypes.LANGUAGE.getOption());
-			String out = cmd.getOptionValue(OptionTypes.OPTION_OUT.getOption(),
-					cmd.getOptionValue(OptionTypes.LANGUAGE.getOption()));
+			String defaultOut = new File(cmd.getOptionValue(OptionTypes.FILE.getOption())).getParent();
+			String out = cmd.getOptionValue(OptionTypes.OUT_DIR.getOption(), defaultOut);
 
 			return new Arguments(file, out, language);
 

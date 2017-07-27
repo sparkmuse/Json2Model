@@ -2,8 +2,9 @@ package com.al.j2m.cmdl;
 
 import java.io.File;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Class to hold the arguments passed by the command line after they have been
@@ -79,57 +80,52 @@ public class Arguments {
 		return (inputFile == null && outputFolder == null && language == null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	
 	@Override
 	public String toString() {
-		return "Arguments \n" + "inputFile=\t" + inputFile + "\n" + "language=\t" + language + "\n" + "outputFolder=\t"
-				+ outputFolder;
+		return ToStringBuilder.reflectionToString(this);
 	}
 
-	/**
-	 * @return the inputFile
-	 */
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+	
+
+	public boolean isHelp() {
+		return isHelp;
+	}
+
+	public void setHelp(boolean isHelp) {
+		this.isHelp = isHelp;
+	}
+
 	public String getInputFile() {
 		return inputFile;
 	}
 
-	/**
-	 * @param inputFile the inputFile to set
-	 */
 	public void setInputFile(String inputFile) {
 		this.inputFile = inputFile;
 	}
 
-	/**
-	 * @return the outputFolder
-	 */
 	public String getOutputFolder() {
 		return outputFolder;
 	}
 
-	/**
-	 * @param outputFolder the outputFolder to set
-	 */
 	public void setOutputFolder(String outputFolder) {
 		this.outputFolder = outputFolder;
 	}
 
-	/**
-	 * @return the language
-	 */
 	public String getLanguage() {
-		return language.toUpperCase();
+		return language;
 	}
 
-	/**
-	 * @param language the language to set
-	 */
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-
 }

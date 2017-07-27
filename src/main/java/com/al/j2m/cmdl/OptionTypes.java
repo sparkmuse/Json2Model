@@ -21,7 +21,7 @@ public enum OptionTypes {
 	
 	LANGUAGE("lang", "language", "LANGUAGE", "The language for the file output.\n Allowed languages:\n"),
 	
-	OPTION_OUT("o", "out", "OUTDIR", "The directory where to place the processed files. If ommited the same DIR as 'file' is used"),
+	OUT_DIR("o", "out", "OUTDIR", "The directory where to place the processed files. If ommited the same DIR as 'file' is used"),
 	
 	HELP("h", "help", "HELP", "Helps you get help :)");
 	
