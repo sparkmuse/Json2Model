@@ -3,8 +3,8 @@ package com.al.j2m;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
-import com.al.json2model.cmdl.ArgumentParser;
-import com.al.json2model.cmdl.Arguments;
+import com.al.j2m.cmdl.ArgumentParser;
+import com.al.j2m.cmdl.Arguments;
 import com.al.json2model.general.JsonReader;
 import com.al.json2model.general.PathUtils;
 import com.al.json2model.model.ModelAbstract;
@@ -35,8 +35,7 @@ public class App {
 		
 
 		ArgumentParser argParser = new ArgumentParser();
-		argParser.parse(args);
-		Arguments arguments = argParser.getArguments();
+		Arguments arguments = argParser.parse(args);
 		
 		if (arguments.isValid()) {
 			

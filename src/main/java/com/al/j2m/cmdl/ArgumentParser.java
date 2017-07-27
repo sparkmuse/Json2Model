@@ -1,4 +1,4 @@
-package com.al.json2model.cmdl;
+package com.al.j2m.cmdl;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -70,7 +70,7 @@ public class ArgumentParser extends DefaultParser {
 	/**
 	 * Change the description of the language option
 	 * 
-	 * @see com.al.json2model.cmdl.OptionTypes
+	 * @see com.al.j2m.cmdl.OptionTypes
 	 */
 	private void updateLaguageDescription() {
 		options.getOption(OptionTypes.LANGUAGE.getOption())
@@ -80,7 +80,7 @@ public class ArgumentParser extends DefaultParser {
 	/**
 	 * Change the argument for the help option to require no arguments
 	 * 
-	 * @see com.al.json2model.cmdl.OptionTypes
+	 * @see com.al.j2m.cmdl.OptionTypes
 	 */
 	private void updateHelpNoArgs() {
 		options.getOption(OptionTypes.HELP.getOption()).setArgs(0);

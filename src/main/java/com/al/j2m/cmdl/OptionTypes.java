@@ -1,4 +1,4 @@
-package com.al.json2model.cmdl;
+package com.al.j2m.cmdl;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
