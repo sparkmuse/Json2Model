@@ -3,7 +3,7 @@ package com.al.json2model.general;
 import java.io.File;
 import java.io.IOException;
 
-import com.al.json2model.App;
+import com.al.j2m.App;
 
 
 /**

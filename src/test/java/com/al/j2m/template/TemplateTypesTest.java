@@ -7,12 +7,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class TemplatesTest {
+public class TemplateTypesTest {
 	
 	@Test
 	public void url_JavaEnumerationType_ReturnsPathwithKeywordinMiddle() throws Exception {
 		String expected = "templates/java/class.vm";
-		assertEquals(expected, Templates.JAVA.url());
+		assertEquals(expected, TemplateTypes.JAVA.url());
 	}
 	
 }

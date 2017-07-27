@@ -1,4 +1,4 @@
-package com.al.json2model;
+package com.al.j2m;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -22,13 +22,19 @@ public class App {
 	
 	public static void main(String[] args) {
 		
-		String fullPropertyPath = PathUtils.getPropertiesFile();
+//		String fullPropertyPath = PathUtils.getPropertiesFile();
+//		
+//		PropertyReader pr = new PropertyReader(fullPropertyPath);
+//		pr.read();
+//		pr.parse();
+//		
 		
-		PropertyReader pr = new PropertyReader(fullPropertyPath);
-		pr.read();
-		pr.parse();
+		
+		
+		
+		
 
-		ArgumentParser argParser = new ArgumentParser(pr.getLanguages().keySet());
+		ArgumentParser argParser = new ArgumentParser();
 		argParser.parse(args);
 		Arguments arguments = argParser.getArguments();
 		
@@ -41,13 +47,13 @@ public class App {
 			String name = FilenameUtils.getBaseName(arguments.getInputFile());
 			name = WordUtils.capitalize(name);
 			String json = reader.getContent();
-			Language language = pr.getLanguages().get(arguments.getLanguage());
+		//	Language language = pr.getLanguages().get(arguments.getLanguage());
 			String outputFolder = arguments.getOutputFolder();
 			
 			
-			ModelAbstract model = ModelFactory.build(name, json, language, outputFolder);
-			model.parse();
-			model.save();
+		//	ModelAbstract model = ModelFactory.build(name, json, language, outputFolder);
+		//	model.parse();
+		//	model.save();
 		}
 	}
 }

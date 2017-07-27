@@ -1,5 +1,6 @@
+com.al.j2m
 com.al.j2m.template
-com.al.json2model
+com.al.j2m.util
 com.al.json2model.cmdl
 com.al.json2model.general
 com.al.json2model.model

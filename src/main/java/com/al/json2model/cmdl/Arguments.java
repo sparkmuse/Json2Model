@@ -6,7 +6,7 @@ import java.io.File;
  * Class to hold the arguments passed by the command line after they have been
  * parsed by the class ArgumentParser.
  * 
- * @author alfredo
+ * @author Alfredo Lopez
  *
  */
 public class Arguments {
