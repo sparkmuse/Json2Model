@@ -12,6 +12,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.al.j2m.util.PropertiesUtil;
 
@@ -24,6 +26,8 @@ import com.al.j2m.util.PropertiesUtil;
  */
 
 public class ArgumentParser extends DefaultParser {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ArgumentParser.class);
 
 	/**
 	 * Default constructor
@@ -110,7 +114,7 @@ public class ArgumentParser extends DefaultParser {
 			return new Arguments(file, out, language);
 
 		} catch (ParseException e) {
-			System.err.println(e.getMessage());
+			LOG.error("Error parsing the command line. {}", e.getMessage());
 		}
 		
 		return Arguments.NO_ARGUMENTS;
@@ -131,10 +135,9 @@ public class ArgumentParser extends DefaultParser {
 		String version = properties.getProperty("application.version");
 		String logo = getLogo();
 
-		System.out.println(logo);
-		System.out.println(name);
-		System.out.println(version);
-		System.out.println();
+		LOG.info(logo);
+		LOG.info(name);
+		LOG.info("{}\n", version);
 		formatter.printHelp(cmdSyntax, description, options, footer, true);
 	}
 
@@ -146,11 +149,12 @@ public class ArgumentParser extends DefaultParser {
 	private String getLogo() {
 		ClassLoader classLoader = getClass().getClassLoader();
 		String result = StringUtils.EMPTY;
-
+		
 		try {
 			result = FileUtils.readFileToString(new File(classLoader.getResource("logo.txt").getFile()),
 					Charset.defaultCharset());
-		} catch (Exception e) {
+		} catch (Exception ex) {
+			LOG.error("Missing logo", ex);
 		}
 
 		return result;

@@ -35,7 +35,7 @@ public class Arguments {
 	}
 
 	private Arguments(boolean isHelp) {
-		this.isHelp = true;
+		this.isHelp = isHelp;
 	}
 
 	/**
