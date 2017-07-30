@@ -5,9 +5,9 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.al.j2m.util.NameUtils;
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
-import com.al.json2model.general.NameUtils;
 import com.al.json2model.model.properties.Language;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;

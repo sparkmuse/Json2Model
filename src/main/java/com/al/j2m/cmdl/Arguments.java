@@ -2,6 +2,7 @@ package com.al.j2m.cmdl;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,16 +20,15 @@ public class Arguments {
 	public static final Arguments NO_ARGUMENTS = new Arguments();
 
 	private boolean isHelp = false;
-	private String inputFile = null;
-	private String outputFolder = null;
-	private String language = null;
+	private String inputFile = StringUtils.EMPTY;
+	private String outputFolder = StringUtils.EMPTY;
+	private String language = StringUtils.EMPTY;
 
 	public Arguments() {
-		super();
 	}
 
 	public Arguments(String inputFile, String outputFolder, String language) {
-		super();
+		this.isHelp = false;
 		this.inputFile = inputFile;
 		this.outputFolder = outputFolder;
 		this.language = language;
@@ -72,12 +72,13 @@ public class Arguments {
 	 */
 	private boolean isValidInputFile() {
 
+		
 		File f = new File(inputFile);
 		return (f.exists() && f.isFile() && f.canRead());
 	}
 
 	private boolean hasDefaultValues() {
-		return (inputFile == null && outputFolder == null && language == null);
+		return (inputFile == StringUtils.EMPTY && outputFolder == StringUtils.EMPTY && language == StringUtils.EMPTY);
 	}
 
 	

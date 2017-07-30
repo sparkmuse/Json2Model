@@ -1,7 +1,7 @@
 com.al.j2m
+com.al.j2m.cmdl
 com.al.j2m.template
 com.al.j2m.util
-com.al.json2model.cmdl
 com.al.json2model.general
 com.al.json2model.model
 com.al.json2model.model.properties

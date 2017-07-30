@@ -30,6 +30,7 @@
 		<slf4j-api.version>1.7.25</slf4j-api.version>
 		<log4j-slf4j-impl.version>2.8.2</log4j-slf4j-impl.version>
 		<log4j.version>2.8.2</log4j.version>
+		<jibx-tools.version>1.3.1</jibx-tools.version>
 
 		<!-- Plugin versions -->
 		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
@@ -101,7 +102,11 @@
 				<artifactId>log4j-jcl</artifactId>
 				<version>${log4j.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.jibx</groupId>
+				<artifactId>jibx-tools</artifactId>
+				<version>${jibx-tools.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -151,6 +156,10 @@
 			<artifactId>log4j-jcl</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-tools</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -159,7 +168,6 @@
 
 	<build>
 		<finalName>j2m</finalName>
-
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

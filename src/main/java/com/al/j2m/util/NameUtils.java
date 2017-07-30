@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.al.json2model.general;
+package com.al.j2m.util;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.al.json2model.general.Pluralizer;
 
 /**
  * @author alfredo
