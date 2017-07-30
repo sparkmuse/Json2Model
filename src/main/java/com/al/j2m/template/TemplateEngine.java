@@ -73,6 +73,7 @@ public class TemplateEngine {
 		Properties properties = new Properties();
 		properties.put(RuntimeConstants.RESOURCE_LOADER, "class");
 		properties.put("class.resource.loader.class", org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader.class.getName());
+		properties.put(RuntimeConstants.RUNTIME_LOG, "logs/velocity.log");
 		velocityEngine.init(properties);
 		return velocityEngine;
 	}	
