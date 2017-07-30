@@ -1,6 +1,6 @@
 package com.al.j2m.entity;
 
-import javax.swing.text.Utilities;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,7 +12,7 @@ public class Data {
 	private String originalName;
 	private JsonNode value;
 	private JsonNodeType type;
-	
+	private List<Data> properties;
 	
 	
 	@Override
@@ -20,6 +20,12 @@ public class Data {
 		return ToStringBuilder.reflectionToString(this);
 	}
 	
+	public List<Data> getProperties() {
+		return properties;
+	}
+	public void setProperties(List<Data> properties) {
+		this.properties = properties;
+	}
 	public String getOriginalName() {
 		return originalName;
 	}
