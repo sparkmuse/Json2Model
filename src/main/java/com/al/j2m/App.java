@@ -2,6 +2,7 @@ package com.al.j2m;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -9,7 +10,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import com.al.j2m.cmdl.ArgumentParser;
 import com.al.j2m.cmdl.Arguments;
 import com.al.j2m.collector.Collector;
-import com.al.j2m.entity.Data;
+import com.al.j2m.entity.Entity;
 import com.al.json2model.general.JsonReader;
 
 /**
@@ -25,12 +26,12 @@ public class App {
 		ArgumentParser argParser = new ArgumentParser();
 		Arguments arguments = argParser.parse(args);
 
-		String jsonString = "{\"name\":\"Mahesh Kumar\",  \"age\":21,\"cash\":218.25,\"verified\":false,\"marks\": [100,90,85],\"type\":{\"s\":\"this\"}}";
-		Collector collector = new Collector(jsonString);
+		String jsonString = "{\"customer\":{\"firstName\": \"John\",\"lastName\": \"Doe\"},\"addresses\": [{\"street\": \"Faraway Creek\",\"number\": 1234,\"city\":	\"Never-land\"}],\"balance\": 23234.23,\"active\": true}";
+		Collector collector = new Collector(jsonString, Optional.empty());
 		
-		List<Data> list = collector.collect();
+		List<Entity> list = collector.collect();
 		
-		for (Data data : list) {
+		for (Entity data : list) {
 			System.out.println(data.toString());
 		}
 		

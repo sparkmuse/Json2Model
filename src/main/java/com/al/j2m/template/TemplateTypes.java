@@ -8,7 +8,7 @@ package com.al.j2m.template;
  */
 public enum TemplateTypes {
 
-	JAVA("java"), BVA("vba");
+	JAVA("java"), VBA("vba");
 	
 	private final static String PREFIX = "templates";
 	private final static String SUFFIX = "class.vm";

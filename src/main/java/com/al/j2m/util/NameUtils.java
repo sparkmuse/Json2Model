@@ -58,7 +58,7 @@ public class NameUtils {
 	 * @return The inferred name if possible, otherwise name
 	 */
 	public static String inferName(String name) {
-
+		
 		// Try to find a capital letter.
 		char[] chars = name.toCharArray();
 

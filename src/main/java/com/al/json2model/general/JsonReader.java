@@ -31,7 +31,6 @@ public class JsonReader {
 		String charset = "UTF-8";
 		byte[] bytes;
 		
-		
 		try {
 			bytes = Files.readAllBytes(Paths.get(file.getPath()));
 			content = new String(bytes, charset);
@@ -40,32 +39,19 @@ public class JsonReader {
 		}
 	}
 	
-	
 
-	/**
-	 * @return the content
-	 */
 	public String getContent() {
 		return content;
 	}
 
-	/**
-	 * @param content the content to set
-	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	/**
-	 * @return the filePath
-	 */
 	public String getFilePath() {
 		return filePath;
 	}
 
-	/**
-	 * @param filePath the filePath to set
-	 */
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}

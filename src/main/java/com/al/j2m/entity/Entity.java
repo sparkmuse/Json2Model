@@ -3,27 +3,28 @@ package com.al.j2m.entity;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 
-public class Data {
+public class Entity {
 
 	private String originalName;
-	private JsonNode value;
 	private JsonNodeType type;
-	private List<Data> properties;
+	private List<Property> properties;
 	
 	
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
-	public List<Data> getProperties() {
+	public List<Property> getProperties() {
 		return properties;
 	}
-	public void setProperties(List<Data> properties) {
+	public void setProperties(List<Property> properties) {
 		this.properties = properties;
 	}
 	public String getOriginalName() {
@@ -31,12 +32,6 @@ public class Data {
 	}
 	public void setOriginalName(String originalName) {
 		this.originalName = originalName;
-	}
-	public JsonNode getValue() {
-		return value;
-	}
-	public void setValue(JsonNode value) {
-		this.value = value;
 	}
 	public JsonNodeType getType() {
 		return type;
