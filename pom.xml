@@ -37,7 +37,7 @@
 		<mockito-all.version>1.9.5</mockito-all.version>
 
 		<!-- Plugin versions -->
-		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+		<maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 	</properties>
