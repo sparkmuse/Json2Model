@@ -264,7 +264,7 @@
 							<failOnError>false</failOnError>
 							<additionalparam>-Xdoclint:none</additionalparam>
 							<outputDirectory>bin/docs</outputDirectory>
-							<detectLinks>true</detectLinks>
+							<detectLinks>false</detectLinks>
 							<additionalDependencies>
 								<additionalDependency>
 									<groupId>org.apache.velocity</groupId>
