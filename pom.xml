@@ -231,7 +231,7 @@
 						<configuration>
 							<failOnError>false</failOnError>
 							<additionalparam>-Xdoclint:none</additionalparam>
-							<outputDirectory>bin/docs</outputDirectory>
+							<outputDirectory>${baseDir.bin}/docs</outputDirectory>
 							<detectLinks>true</detectLinks>
 							<additionalDependencies>
 								<additionalDependency>
@@ -241,6 +241,9 @@
 								</additionalDependency>
 							</additionalDependencies>
 							<author>true</author>
+							<jarOutputDirectory>${baseDir.bin}</jarOutputDirectory>
+							<finalName>${finalName}</finalName>
+							<notimestamp>true</notimestamp>
 						</configuration>
 					</execution>
 				</executions>
