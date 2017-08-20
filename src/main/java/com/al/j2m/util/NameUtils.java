@@ -13,45 +13,71 @@ import com.al.json2model.general.Pluralizer;
  */
 public class NameUtils {
 
-	public static String getCommonBetween(String w1, String w2) {
+	/**
+	 * Method to get the common elements in a word. 
+	 * It starts from the end and if nothing matches then it moves
+	 * from the beginning.
+	 * 
+	 * There is a minimunMatchLength of 4 to return a match. 
+	 * 
+	 * @param word1
+	 * @param word2
+	 * @return
+	 */
+	public static String getCommonBetween(String word1, String word2) {
+		
+		final int minimunMatchLength = 4;
+		String longWord = word1.length() >= word2.length() ? word1 : word2;
+		String shortWord = word1.length() < word2.length() ? word1 : word2;
 
-		char[] chars = w1.toCharArray();
-
-		String test = "";
-		int i = 0;
-
-		while (test.length() < 4 && i < chars.length) {
-			test = w1.substring(i, i + 1);
-
-			// Check if we have it, then keep on trying.
-			if (w2.contains(test)) {
-
-				int j = i + 1;
-				while (w2.contains(test) && j < chars.length) {
-					test = w1.substring(i, j + 1);
-					j++;
+		int maxLength = longWord.length() - 1;
+		char[] longChar = longWord.toCharArray();
+		char[] shortChar = shortWord.toCharArray();
+		String prospect = StringUtils.EMPTY;
+		
+		for (int i = longChar.length - 1, j = shortChar.length - 1; (i <= maxLength && i > 0); i--, j--) {
+			if (longChar[i] != shortChar[j]) {
+				prospect = longWord.substring(i + 1);
+				if (prospect.length() >= minimunMatchLength) {
+					return prospect;
+				} else {
+					break;
 				}
 			}
-			i++;
 		}
 
-		return test;
+		for (int i = 0, j = 0; i < maxLength; i++, j++) {
+			if (longChar[i] != shortChar[j]) {
+				prospect = longWord.substring(0, i);
+				if (prospect.length() >= minimunMatchLength) {
+					return prospect;
+				} else {
+					break;
+				}
+			}
+		}
+
+		return StringUtils.EMPTY;
 	}
 
 	/**
 	 * Returns the name out of a name string based on the casing. Most
-	 * programmers us a capital letter to start a meaningful name.
+	 * programmers us a capital letter to start a meaningful name. We 
+	 * skip the first letter.
+	 * 
+	 * If the variable does not contain a capital letter then we will 
+	 * return the same name.
 	 * 
 	 * Best used with getCommonBetween().
 	 * 
 	 * Ex:
 	 * 
 	 * <pre>
-	 * 	String s = "firstName";
-	 * 	String s1 = "lastName";
+	 * String s = "firstName";
+	 * String s1 = "lastName";
 	 *
-	 * 	NameUtils.getCommonBetween(s, s1); // returns "stName"
-	 * 	NameUtils.inferName(result); // returns = "Name"
+	 * NameUtils.getCommonBetween(s, s1); // returns "stName"
+	 * NameUtils.inferName(result); // returns = "Name"
 	 * </pre>
 	 * 
 	 * @param name The name to check
@@ -59,13 +85,15 @@ public class NameUtils {
 	 */
 	public static String inferName(String name) {
 		
-		// Try to find a capital letter.
 		char[] chars = name.toCharArray();
-
-		int i = 0;
+		int i = 1;
 		while (i < chars.length && !Character.isUpperCase(chars[i])) {
 			i++;
 		}
+		
+		if (i == name.length()) {
+			return name;
+		} 
 
 		return name.substring(i);
 	}
@@ -73,7 +101,8 @@ public class NameUtils {
 	/**
 	 * Procedure to get the plural of a word
 	 * 
-	 * @param noun The word to pluralize.
+	 * @param noun
+	 *            The word to pluralize.
 	 * @return A pluralized version of the word.
 	 * @see Pluralizer
 	 */
@@ -84,23 +113,25 @@ public class NameUtils {
 	/**
 	 * Procedure to get the singular of a word.
 	 *
-	 * @param noun The word to convert to singular.
+	 * @param noun
+	 *            The word to convert to singular.
 	 * @return A singular version of the word.
 	 * @see Pluralizer
 	 */
 	public static String getSingular(String noun) {
 		return Pluralizer.getSingular(noun);
 	}
-	
+
 	/**
 	 * Procedure to get the capitalized of a word.
 	 *
-	 *@param word The word to capitalize.
-	 *@return The capitalized word.
+	 * @param word
+	 *            The word to capitalize.
+	 * @return The capitalized word.
 	 *
 	 * @see StringUtils
 	 */
-	public static String getCapitalized (String word) {
+	public static String getCapitalized(String word) {
 		return StringUtils.capitalize(word);
 	}
 
