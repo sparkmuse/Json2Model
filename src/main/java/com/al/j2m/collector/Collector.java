@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import com.al.j2m.entity.Entity;
 import com.al.j2m.entity.Property;
+import com.al.j2m.util.NameUtils;
+import com.al.j2m.util.NameUtilsTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
@@ -38,13 +40,13 @@ public class Collector {
 	}
 
 	public List<Entity> collect() {
-		collect(DEFAULT_ROOT_NAME, root);
+		collect(this.rootName, root);
 		return this.data;
 	}
 
 	private void collect(String name, JsonNode node) {
 
-		Entity entity = createEntity(name, node);
+		Entity entity = new Entity(name, node.getNodeType());
 		List<Property> properties = new ArrayList<>();
 
 		Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
@@ -57,7 +59,7 @@ public class Collector {
 			property.setName(entry.getKey());
 			property.setType(entry.getValue().getNodeType().toString());
 			properties.add(property);
-
+			
 			if (entry.getValue().getNodeType().equals(JsonNodeType.OBJECT)) {
 				collect(entry.getKey(), entry.getValue());
 			}
@@ -70,14 +72,4 @@ public class Collector {
 		entity.setProperties(properties);
 		this.data.add(entity);
 	}
-
-	private Entity createEntity(String name, JsonNode node) {
-
-		Entity entity = new Entity();
-		entity.setOriginalName(name);
-		entity.setType(node.getNodeType());
-
-		return entity;
-	}
-
 }
