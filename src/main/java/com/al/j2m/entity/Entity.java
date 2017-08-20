@@ -7,8 +7,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.al.j2m.util.NameUtils;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 
 public class Entity {

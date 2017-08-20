@@ -19,6 +19,7 @@ import com.google.gson.JsonPrimitive;
  * @author alfredo
  *
  */
+@SuppressWarnings("deprecation")
 public class ModelObjectiveC extends ModelAbstract {
 	
 	/**

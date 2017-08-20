@@ -20,6 +20,7 @@ import com.google.gson.JsonPrimitive;
  * @author alfredo
  *
  */
+@SuppressWarnings("deprecation")
 public class ModelJava extends ModelAbstract {
 
 	/**
@@ -176,6 +177,7 @@ public class ModelJava extends ModelAbstract {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected String getBodyGettersAndSetters() {
 

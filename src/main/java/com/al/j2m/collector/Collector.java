@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import com.al.j2m.entity.Entity;
 import com.al.j2m.entity.Property;
-import com.al.j2m.util.NameUtils;
-import com.al.j2m.util.NameUtilsTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;

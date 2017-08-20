@@ -31,6 +31,7 @@ import com.google.gson.JsonSyntaxException;
  * @author alfredo
  *
  */
+@SuppressWarnings("deprecation")
 public abstract class ModelAbstract {
 	
 	protected String modelName;

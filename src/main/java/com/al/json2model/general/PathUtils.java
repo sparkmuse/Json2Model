@@ -1,14 +1,11 @@
 package com.al.json2model.general;
 
 import java.io.File;
-import java.io.IOException;
-
-import com.al.j2m.App;
 
 
 /**
  * Class to hold Path utilities
- * 
+ * 	
  * @author alfredo
  *
  */

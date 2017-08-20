@@ -1,6 +1,7 @@
 package com.al.j2m.cmdl;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.stream.Stream;
@@ -11,6 +12,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,7 @@ import com.al.j2m.util.PropertiesUtil;
  */
 
 public class ArgumentParser extends DefaultParser {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ArgumentParser.class);
 
 	/**
@@ -55,7 +57,8 @@ public class ArgumentParser extends DefaultParser {
 	/**
 	 * Adds an option to the command line with the arguments.
 	 * 
-	 * @param type option to add
+	 * @param type
+	 *            option to add
 	 */
 	private void addOptionWithArgs(OptionTypes type) {
 		// @formatter:off
@@ -94,7 +97,8 @@ public class ArgumentParser extends DefaultParser {
 	 * Parses the command line arguments and adds them to the Arguments object
 	 * if possible.
 	 * 
-	 * @param args The command line arguments to be parsed.
+	 * @param args
+	 *            The command line arguments to be parsed.
 	 */
 	public Arguments parse(String[] args) {
 
@@ -116,7 +120,7 @@ public class ArgumentParser extends DefaultParser {
 		} catch (ParseException e) {
 			LOG.error("Error parsing the command line. {}", e.getMessage());
 		}
-		
+
 		return Arguments.NO_ARGUMENTS;
 	}
 
@@ -144,17 +148,18 @@ public class ArgumentParser extends DefaultParser {
 	/**
 	 * Gets the logo from the resources folder.
 	 * 
-	 * @return the a string representation of the logo
+	 * @return the a string representation of the logo.
 	 */
 	private String getLogo() {
-		ClassLoader classLoader = getClass().getClassLoader();
+		
+		final String logoPath = "/logo.txt";
 		String result = StringUtils.EMPTY;
 		
-		try {
-			result = FileUtils.readFileToString(new File(classLoader.getResource("logo.txt").getFile()),
-					Charset.defaultCharset());
+		try (InputStream stream = this.getClass().getResourceAsStream(logoPath)) {
+		
+			result = IOUtils.toString(stream, Charset.defaultCharset());
 		} catch (Exception ex) {
-			LOG.error("Missing logo", ex);
+			LOG.debug("Missing logo", ex);
 		}
 
 		return result;

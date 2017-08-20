@@ -11,9 +11,12 @@
 	</description>
 	<url>https://github.com/fredlo2010/Json2Model</url>
 
+	
 	<properties>
 		<!-- Other properties -->
 		<main.class>com.al.j2m.App</main.class>
+		<finalName>j2m</finalName>
+		<baseDir.bin>${basedir}/bin</baseDir.bin>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -34,10 +37,7 @@
 		<mockito-all.version>1.9.5</mockito-all.version>
 
 		<!-- Plugin versions -->
-		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-		<maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
 		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
-		<copy-rename-maven-plugin.version>1.0.1</copy-rename-maven-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 	</properties>
@@ -113,7 +113,6 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-all</artifactId>
 				<version>${mockito-all.version}</version>
-				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -191,24 +190,6 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>${maven-eclipse-plugin.version}</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>${maven-assembly-plugin.version}</version>
 				<configuration>
@@ -220,6 +201,11 @@
 							<mainClass>${main.class}</mainClass>
 						</manifest>
 					</archive>
+					<outputDirectory>${baseDir.bin}</outputDirectory>
+					<finalName>${finalName}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
 				<executions>
 					<execution>
@@ -231,25 +217,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>com.coderplus.maven.plugins</groupId>
-				<artifactId>copy-rename-maven-plugin</artifactId>
-				<version>${copy-rename-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>copy-file</id>
-						<phase>install</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<sourceFile>target/j2m-jar-with-dependencies.jar</sourceFile>
-							<destinationFile>bin/j2m.jar</destinationFile>
-							<overWrite>true</overWrite>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -277,6 +245,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>

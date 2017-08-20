@@ -16,6 +16,7 @@ import com.al.json2model.general.JsonReader;
  * Main application class. :)
  *
  */
+@SuppressWarnings("deprecation")
 public class App {
 
 	public static final String APP_NAME = "Json2Model";

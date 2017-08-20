@@ -1,14 +1,12 @@
 package com.al.j2m.template;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import com.al.j2m.template.TemplateEngine;
 
 public class TemplateEngineTest {
 	
