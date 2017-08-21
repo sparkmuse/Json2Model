@@ -1,19 +1,31 @@
 package com.al.j2m.entity;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.databind.node.JsonNodeType;
+
 public class Property {
 
+	private String nameOriginal;
+	private JsonNodeType typeOriginal;
+	private Optional<String> primitiveType;
 	private String name;
 	private String type;
-	
+
 	public Property() {
 	}
-	
-	public Property(String name, String type) {
-		this.name = name;
-		this.type = type;
+
+	public Property(String name, JsonNodeType type) {
+		this.nameOriginal = name;
+		this.typeOriginal = type;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
 	public String getName() {
@@ -32,9 +44,20 @@ public class Property {
 		this.type = type;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	public String getNameOriginal() {
+		return nameOriginal;
 	}
-}
 
+	public JsonNodeType getTypeOriginal() {
+		return typeOriginal;
+	}
+
+	public Optional<String> getPrimitiveType() {
+		return primitiveType;
+	}
+
+	public void setPrimitiveType(Optional<String> primitiveType) {
+		this.primitiveType = primitiveType;
+	}
+
+}

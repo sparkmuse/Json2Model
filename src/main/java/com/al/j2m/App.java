@@ -10,6 +10,8 @@ import com.al.j2m.cmdl.ArgumentParser;
 import com.al.j2m.cmdl.Arguments;
 import com.al.j2m.collector.Collector;
 import com.al.j2m.entity.Entity;
+import com.al.j2m.translator.JavaTranslator;
+import com.al.j2m.translator.Translator;
 import com.al.json2model.general.JsonReader;
 
 /**
@@ -32,8 +34,13 @@ public class App {
 		List<Entity> list = collector.collect();
 		
 		for (Entity data : list) {
+			
+			Translator t = new JavaTranslator(data);
+			t.translate();
 			System.out.println(data.toString());
 		}
+
+
 		
 
 		if (arguments.isValid()) {

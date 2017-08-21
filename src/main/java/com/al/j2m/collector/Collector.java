@@ -38,11 +38,11 @@ public class Collector {
 	}
 
 	public List<Entity> collect() {
-		collect(this.rootName, root);
+		collect(this.rootName, root, Optional.of(this.rootName));
 		return this.data;
 	}
 
-	private void collect(String name, JsonNode node) {
+	private void collect(String name, JsonNode node, Optional<String> primitiveType) {
 
 		Entity entity = new Entity(name, node.getNodeType());
 		List<Property> properties = new ArrayList<>();
@@ -52,18 +52,18 @@ public class Collector {
 		while (iterator.hasNext()) {
 
 			Map.Entry<String, JsonNode> entry = iterator.next();
-
-			Property property = new Property();
-			property.setName(entry.getKey());
-			property.setType(entry.getValue().getNodeType().toString());
+			
+			Property property = new Property(entry.getKey(), entry.getValue().getNodeType());
+			property.setPrimitiveType(primitiveType);
 			properties.add(property);
 			
 			if (entry.getValue().getNodeType().equals(JsonNodeType.OBJECT)) {
-				collect(entry.getKey(), entry.getValue());
+				collect(entry.getKey(), entry.getValue(), Optional.of(entry.getKey()));
+				
 			}
 
 			if (entry.getValue().getNodeType().equals(JsonNodeType.ARRAY)) {
-				collect(entry.getKey(), entry.getValue().get(0));
+				collect(entry.getKey(), entry.getValue().get(0), Optional.of(entry.getValue().getNodeType().toString()));
 			}
 		}
 
