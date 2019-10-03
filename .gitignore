@@ -80,6 +80,7 @@ dist/
 nbdist/
 .nb-gradle/
 
-.idea
+.idea/
 Json2Model.iml
-# End of https://www.gitignore.io/api/java,maven,eclipse,netbeans
+
+/bin
