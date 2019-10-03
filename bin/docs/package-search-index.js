@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.al.j2m"},{"l":"com.al.j2m.cmdl"},{"l":"com.al.j2m.collector"},{"l":"com.al.j2m.entity"},{"l":"com.al.j2m.template"},{"l":"com.al.j2m.translator"},{"l":"com.al.j2m.util"},{"l":"com.al.json2model.general"},{"l":"com.al.json2model.model"},{"l":"com.al.json2model.model.properties"}]

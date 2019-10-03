@@ -1,20 +1,6 @@
 package com.al.json2model.model;
 
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.text.WordUtils;
-
 import com.al.j2m.util.NameUtils;
 import com.al.json2model.general.ClassFile;
 import com.al.json2model.general.DataType;
@@ -25,6 +11,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.text.WordUtils;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Model class from which all the other models will be derived.
@@ -51,9 +50,7 @@ public abstract class ModelAbstract {
 
 	/**
 	 * Default constructor for the class.
-	 * @param modelName The modelName if the class
 	 * @param json The JSON file string to be processed
-	 * @param langucccage The language used for the class
 	 * @param destFolder The folder where to place the processed files.
 	 */
 	public  ModelAbstract(String name, String json, Language language, String destFolder) {
@@ -304,7 +301,6 @@ public abstract class ModelAbstract {
 	}
 
 	/**
-	 * @param modelName the modelName to set
 	 */
 	protected void setName(String name) {
 		this.modelName = name;
