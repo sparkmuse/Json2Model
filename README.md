@@ -1,8 +1,4 @@
 # Json2Model
-[![GitHub version](https://badge.fury.io/gh/fredlo2010%2FJson2Model.svg)](https://badge.fury.io/gh/fredlo2010%2FJson2Model)
-[![Build Status](https://travis-ci.org/fredlo2010/Json2Model.svg?branch=master)](https://travis-ci.org/fredlo2010/Json2Model)
-[![Dependency Status](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df/badge.png)](https://www.versioneye.com/user/projects/58c32fafc920cf003daa49df)
-[![codecov](https://codecov.io/gh/fredlo2010/Json2Model/branch/master/graph/badge.svg)](https://codecov.io/gh/fredlo2010/Json2Model)
 
 ## About
 
